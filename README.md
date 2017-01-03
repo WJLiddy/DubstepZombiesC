@@ -12,4 +12,4 @@ March: Enemy and Friendly AI
 
 April: Balancing and Finishing touches, release.
 
-http://lazyfoo.net/SDL_tutorials/
+http://www.cppgameprogramming.com/
