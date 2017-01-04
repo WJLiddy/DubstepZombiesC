@@ -12,4 +12,11 @@ March: Enemy and Friendly AI
 
 April: Balancing and Finishing touches, release.
 
-http://www.cppgameprogramming.com/
+Wanna help? Pls?
+We're using allegro 5.
+
+Here's how you install the libs for Allegro (on Ubuntu)
+https://wiki.allegro.cc/index.php?title=Install_Allegro_from_Ubuntu_PPAs
+
+Here's how you can compile a test file.
+g++ example.cpp -o example -I/usr/include/allegro5 -L/usr/lib -lallegro
