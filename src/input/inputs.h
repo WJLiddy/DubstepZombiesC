@@ -2,14 +2,15 @@
 #define INPUTS_H
 
 #include "controller.h"
-#include <vector>;
+#include <vector>
 
-class Inputs: public {
+class Inputs 
+{
 private:
      std::vector<Controller*> controllers_; 
 public:
-	static int PLAYERCOUNT = 3;
-    void setPlayerInput(int playernumber, Controller* c)
+	static const int PLAYERCOUNT = 3;
+    void setPlayerInput(int playernumber, Controller* c);
     Controller* getController(int playernumber);
     void update();
 };

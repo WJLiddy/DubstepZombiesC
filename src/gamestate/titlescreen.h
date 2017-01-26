@@ -1,16 +1,14 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef TITLESCREEN_H
+#define TITLESCREEN_H
 
-#include "input/inputs.h"
+#include "../input/inputs.h"
+#include "gamestate.h"
 
-class TitleScreen : public Gamestate
+class TitleScreen : public GameState
 {
-private:
-	Inputs* inputs_;
-public:
-	// Pass player inputs between states, but that's about the only thing.
-	Gamestate(Inputs* inputs);
-    Gamestate* update();
-    void draw_state(DrawUtils* drawutils);
+public:	// Pass player inputs between states, but that's about the only thing.
+	TitleScreen(Inputs* inputs);
+    GameState* update_state();
+    void draw_state(DrawUtils *drawUtils);
 };
 #endif

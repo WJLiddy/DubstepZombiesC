@@ -1,26 +1,20 @@
 #include "titlescreen.h"
 
-
-    Gamestate* update(); // P U R E  V I R T U A L  F U N C T I O N S
-    void draw();
-
-    Titlescreen::Titlescreen(Inputs* inputs)
+    TitleScreen::TitleScreen(Inputs *inputs)
     {
-        inputs_ = inputs;
+        GameState(Inputs* inputs);
     }
 
-    void Titlescreen::update()
+    GameState *TitleScreen::update_state()
     {
-        //Nothing to do here, yet!
+        //Nothing to do here! No state update, so just return a null pointer.
+        return NULL;
     }
 
-
-    void update(DrawUtils* drawutils)
+    void TitleScreen::draw_state(DrawUtils *drawUtils)
     {
-        for (int i=0; i < controllers_.size; i++) 
-        {
-            controllers_[i].update();
-        }
+        al_clear_to_color(al_map_rgb(50,10,70));
+        drawUtils->drawCenteredString(255,0,0,drawUtils->GAME_W/2,32,"DUBSTEP ZOMBIES");
     }
 }
 

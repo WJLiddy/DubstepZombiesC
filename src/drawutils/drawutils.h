@@ -1,16 +1,29 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef DRAWUTILS_H
+#define DRAWUTILS_H
 
-#include "input/inputs.h"
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 class DrawUtils
 {
-	// Pass player inputs between states, but that's about the only thing.
-	Gamestate(Inputs* inputs);
-	// Returns the next state to run update() and draw() on.
-    virtual Gamestate* update() = 0;
-    // Use DrawUtils and allegro in this function to draw what you need to draw. Everything will automatically be scaled to the screen resolution.
-    virtual void draw_state(DrawUtils* DrawUtils) = 0; // P U R E  V I R T U A L  F U N C T I O N S
-    void draw(DrawUtils* DrawUtils);
+private:
+	// font used for the game. Just the basic system font.
+	ALLEGRO_FONT *font_;
+	// Game screen in NES coordinates (GAME_W * GAME_H)
+	ALLEGRO_BITMAP *game_screen_;
+	// Physical drawing screen.
+	ALLEGRO_DISPLAY *display_;
+	// Resolution of the game
+	int screen_w_; 
+	int screen_h_;
+
+public:
+	static const int GAME_W = 340;
+	static const int GAME_H = 244;
+	// IMPORTANT: Call drawing functions as if the game were in 340 / 244. flip() will take care of scaling!
+
+    void beginDraw();
+    void flip();
 };
 #endif 
