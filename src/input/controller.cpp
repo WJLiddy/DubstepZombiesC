@@ -1,32 +1,38 @@
-#include "inputs.h"
+//Incudes functions for pure abstract class Controller
 
-    Inputs::Inputs()
-    {
-        controllers_ = new std::vector<Controller*>();
-        for(int i = 0; i != PLAYERCOUNT; i++)
-        {
-            controllers_.push_back(NULL);
-        }
-    }
+#include "controller.h"
+/****************************
+    press:
+    Checks if a key has 
+    been pressed before. if it 
+    has, do nothing. If it has 
+    not, run newPress.
+****************************/
 
-    void Inputs::setPlayerInput(int playernumber, Controller* c)
-    {
-        delete(controllers_[playernumber])
-        controllers_[playernumber] = c;
-    }
-
-    Controller* Inputs::getController(int playernumber)
-    {
-        return controllers_[playernumber];
-    }
-
-    void update()
-    {
-        for (int i=0; i < controllers_.size; i++) 
-        {
-            controllers_[i].update();
-        }
-    }
+void Controller::press(Controll c){
+    if (isPressed[c] == false)
+    newPress(c);
 }
 
-#endif 
+/*****************************
+    newPress:
+    Update key state, and
+    since it was just pressed 
+    update justPressed
+*****************************/    
+
+void Controller::newPress(Controll c){
+    justPressed[c] = true;
+    isPressed[c] = true;
+}
+
+/*****************************
+    unPress:
+    Update key state, make 
+    sure the key state is 
+    off
+****************************/
+
+void Controller::unPress(Controll c){ 
+    isPressed[c] = false; 
+}

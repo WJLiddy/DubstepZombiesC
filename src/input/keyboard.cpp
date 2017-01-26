@@ -3,7 +3,7 @@
 //Functions from keyboard class
 //TODO: remove this include
 #include "keyboard.h"
-#include "controller.cpp"
+#include "controller.h"
 /**********************************
     Default constructor:
 	Installs keyboard driver, 
