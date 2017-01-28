@@ -3,7 +3,6 @@
 //Functions from keyboard class
 //TODO: remove this include
 #include "keyboard.h"
-#include "controller.h"
 /**********************************
     Default constructor:
 	Installs keyboard driver, 
@@ -13,7 +12,8 @@
     TODO: Make default keys?
 **********************************/
 
-Keyboard::Keyboard(){
+Keyboard::Keyboard()
+{
     if (!al_install_keyboard()){
 	fprintf(stderr, "Failed to install keyboard!\n");
 	return;
@@ -65,7 +65,7 @@ Keyboard::Keyboard(){
     
 ************************************/
 
-void Keyboard::setKey(Controll c, int keycode){
+void Keyboard::setKey(Control c, int keycode){
     //TODO: ADD ERROR 2 (KEY IS NOT ALLOWED)
     std::string errMsg;
     errMsg.append(al_keycode_to_name(keycode));

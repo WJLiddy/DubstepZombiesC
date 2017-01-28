@@ -18,7 +18,7 @@ private:
 public:
     Keyboard();
     virtual void update();//Update keyboard
-    virtual void setKey(Controll, int);
+    virtual void setKey(Control, int);
 };
     bool Keyboard::usedKeys[ALLEGRO_KEY_MAX] = {0};//all keys are not used
 

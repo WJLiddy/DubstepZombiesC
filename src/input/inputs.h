@@ -7,11 +7,12 @@
 class Inputs 
 {
 private:
-     std::vector<Controller*> controllers_; 
+    std::vector<Controller*>* controllers_; 
 public:
 	static const int PLAYERCOUNT = 3;
-    void setPlayerInput(int playernumber, Controller* c);
-    Controller* getController(int playernumber);
+	Inputs();
+    void setPlayerInput(int, Controller*);
+    Controller* getController(int);
     void update();
 };
 

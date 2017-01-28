@@ -9,7 +9,7 @@
     not, run newPress.
 ****************************/
 
-void Controller::press(Controll c){
+void Controller::press(Control c){
     if (isPressed[c] == false)
     newPress(c);
 }
@@ -21,7 +21,7 @@ void Controller::press(Controll c){
     update justPressed
 *****************************/    
 
-void Controller::newPress(Controll c){
+void Controller::newPress(Control c){
     justPressed[c] = true;
     isPressed[c] = true;
 }
@@ -33,6 +33,6 @@ void Controller::newPress(Controll c){
     off
 ****************************/
 
-void Controller::unPress(Controll c){ 
+void Controller::unPress(Control c){ 
     isPressed[c] = false; 
 }

@@ -3,6 +3,8 @@
 #include "gamestate/gamestate.h"
 #include "gamestate/titlescreen.h"
 #include "drawutils/drawutils.h"
+#include "input/inputs.h"
+#include "input/controller.h"
 #include "input/keyboard.h"
 
 const float FPS = 60;
@@ -39,9 +41,9 @@ int main(int argc, char **argv){
    al_start_timer(timer);
 
    // Load programatically from a file later, but for now,
-   //Inputs *inputs = new Inputs();
+   Inputs *inputs = new Inputs();
    //Default keys
-   //inputs->setPlayerInput(0, new Keyboard());
+   inputs->setPlayerInput(0, NULL);
    DrawUtils *drawUtils = new DrawUtils();
    GameState *gameState = new TitleScreen(NULL);
 
