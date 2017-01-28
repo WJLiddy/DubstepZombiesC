@@ -64,7 +64,7 @@ int main(int argc, char **argv){
       }
  
       if(frame_drawn && al_is_event_queue_empty(event_queue)) {
-         //gameState->draw(drawUtils);
+         gameState->draw(drawUtils);
          frame_drawn = false;
       }
    }
