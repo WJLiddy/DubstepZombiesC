@@ -22,8 +22,11 @@ public:
 	static const int GAME_W = 340;
 	static const int GAME_H = 244;
 	// IMPORTANT: Call drawing functions as if the game were in 340 / 244. flip() will take care of scaling!
-
+	DrawUtils();
+	~DrawUtils();
     void beginDraw();
     void flip();
+    void drawCenteredString(int, int, int, int, int, std::string);
+    void x();
 };
 #endif 

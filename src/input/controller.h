@@ -15,8 +15,9 @@
 #include <allegro5/allegro.h>
 #include <string>
 
-enum Controll{A = 0, B, X, Y, UP, DOWN, LEFT, RIGHT, LBUMPER, RBUMPER, END};
 
+enum Controll{A = 0, B, X, Y, UP, DOWN, LEFT, RIGHT, LBUMPER, RBUMPER, END};
+/**
 //Prefix operator for controll Enum
 Controll operator ++(Controll &id)
 {
@@ -66,7 +67,7 @@ std::string StrControll(Controll c){
 	}
     return returnStr;
 }
-
+*/
 class Controller{
 protected:
     bool isPressed[10]; // True If key is pressed 
