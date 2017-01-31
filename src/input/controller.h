@@ -15,12 +15,57 @@
 #include <allegro5/allegro.h>
 #include <string>
 
-#include "controlenum.h"
-
-using namespace controlEnum;
-
 class Controller{
-    //Enum moved into its own namespace: controlEnum
+public:
+
+    enum Control {A = 0, B, X, Y, UP, DOWN, LEFT, RIGHT, LBUMPER, RBUMPER, END};
+
+    Control next(Control &id)
+    {
+       Control currentID = id;
+       if ( END < id + 1 ) id = A;
+       else id = static_cast<Control>( id + 1 );
+       return (currentID);
+    }
+
+    std::string StrControl(Control c){
+        std::string returnStr;
+        switch (c)
+        {
+            case A:
+                returnStr = "A";
+                break;
+            case B:
+                returnStr = "B";
+                break;
+            case X:
+                returnStr = "X";
+                break;
+            case Y:
+                returnStr = "Y";
+                break;
+            case UP:
+                returnStr = "Up";
+                break;
+            case DOWN:
+                returnStr = "Down";
+                break;
+            case LEFT:
+                returnStr = "Left";
+                break;
+            case RIGHT:
+                returnStr = "Right";
+                break;
+            case LBUMPER:
+                returnStr = "Left Bumper";
+                break;
+            case RBUMPER:
+                returnStr = "Right Bumper";
+                break;
+            }            
+       return returnStr;
+        }
+
 protected:
     bool isPressed[10]; // True If key is pressed 
     bool justPressed[10];
@@ -30,8 +75,7 @@ protected:
     void unPress(Control c);//c was let go
 public:
 	
-	// Does this have to go here or can it go in the cpp file? 
-	//(Jacob)Response: No - I moved it
+
     Controller();
 
     virtual void update() = 0;

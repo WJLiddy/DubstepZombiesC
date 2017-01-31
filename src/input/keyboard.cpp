@@ -92,7 +92,7 @@ void Keyboard::update(){
     ALLEGRO_KEYBOARD_STATE state; //Get state of keyboard
     al_get_keyboard_state(&state);
 
-    for(Control index = A; index < END; ++index)//loop through each key
+    for(Control index = A; index < END; next(index))//loop through each key
     {
 	justPressed[index] = false;//Reset "justpressed" keys
 
