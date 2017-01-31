@@ -69,8 +69,9 @@ public:
 	    return returnStr;
 	}
 
-	// Does this have to go here or can it go in the cpp file?
-    Controller(){for(int i = 0; i < 10; i++) isPressed[i] = false;}
+	// Does this have to go here or can it go in the cpp file? 
+	//(Jacob)Response: No - I moved it
+    Controller();
 
     virtual void update() = 0;
     virtual void setKey(Control, int) = 0;
