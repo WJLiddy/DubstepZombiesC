@@ -22,7 +22,7 @@ AIcontrol::AIcontrol(){
 **********************************/
 void AIcontrol::update(){
 
-    for(int index = 1; index < static_cast<int>(END); index++)//loop through each key
+    for(int index = 0; index < static_cast<int>(END); index++)//loop through each key
     {
         justPressed[index] = false;//Reset "justpressed" keys
 
