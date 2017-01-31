@@ -21,12 +21,18 @@ private:
 public:
 	static const int GAME_W = 340;
 	static const int GAME_H = 244;
-	// IMPORTANT: Call drawing functions as if the game were in 340 / 244. flip() will take care of scaling!
 	DrawUtils();
 	~DrawUtils();
+
+	// This function is used at the start of every "state" draw function to flip the buffer. 
     void beginDraw();
+
+    // Physically draws the bitmap to the screen. Again, this is only used by the state.
     void flip();
+
+    // CALL THE BELOW FUNCTIONS BETWEEN beginDraw() and flip().
+    
+    // Draws a centered string on the screen at r,g,b,x,y,string.  
     void drawCenteredString(int, int, int, int, int, std::string);
-    void x();
 };
 #endif 

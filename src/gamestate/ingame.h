@@ -1,14 +1,14 @@
-#ifndef TITLESCREEN_H
-#define TITLESCREEN_H
+#ifndef INGAME_H
+#define INGAME_H
 
 #include "../input/inputs.h"
 #include "gamestate.h"
 #include "../drawutils/drawutils.h"
 
-class TitleScreen : public GameState
+class InGame : public GameState
 {
 public:	
-	TitleScreen(Inputs* inputs) : GameState(inputs) {}
+	InGame(Inputs* inputs) : GameState(inputs) {}
   
     GameState* update_state();
     

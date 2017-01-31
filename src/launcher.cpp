@@ -41,11 +41,12 @@ int main(int argc, char **argv){
    al_start_timer(timer);
 
    // Load programatically from a file later, but for now,
-   Inputs *inputs = new Inputs();
+   Inputs inputs;
    //Default keys
-   inputs->setPlayerInput(0, NULL);
-   DrawUtils *drawUtils = new DrawUtils();
-   GameState *gameState = new TitleScreen(NULL);
+   inputs.setPlayerInput(0, new Keyboard());
+   DrawUtils drawUtils;
+
+   GameState *gameState = new TitleScreen(&inputs);
 
    while(1)
    {
@@ -53,7 +54,7 @@ int main(int argc, char **argv){
       al_wait_for_event(event_queue, &ev);
  
       if(ev.type == ALLEGRO_EVENT_TIMER) {
-         GameState* next_state = NULL;//gameState->update();
+         GameState* next_state = gameState->update();
          if(next_state)
          {
             delete(gameState);
@@ -66,7 +67,7 @@ int main(int argc, char **argv){
       }
  
       if(frame_drawn && al_is_event_queue_empty(event_queue)) {
-         gameState->draw(drawUtils);
+         gameState->draw(&drawUtils);
          frame_drawn = false;
       }
    }
