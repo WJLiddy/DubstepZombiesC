@@ -1,11 +1,13 @@
+#include "gamestate.h"
 #include "titlescreen.h"
+#include "ingame.h"
 
     GameState* TitleScreen::update_state()
     {
         // Let's just do a "PRESS ANY BUTTON TO START!"
-        if(inputs_->getController(0)->newPress(Controller::Control.A))
+        if(inputs_->getController(0)->tapped(Controller::A))
         {
-            return (new InGame(inputs_));
+            return new InGame(inputs_);
         }
         else return NULL;
     }
