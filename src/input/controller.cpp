@@ -1,6 +1,18 @@
 //Incudes functions for pure abstract class Controller
 
 #include "controller.h"
+/**********1337**********
+    Default ctr:
+	set all keystates 
+    to false
+*************************/
+Controller::Controller(){
+    for(int i = 0; i < 10; i++){
+	isPressed[i] = false;
+        justPressed[i] = false;
+    }   
+}
+
 /****************************
     press:
     Checks if a key has 

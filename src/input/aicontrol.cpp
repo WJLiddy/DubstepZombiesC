@@ -22,18 +22,18 @@ AIcontrol::AIcontrol(){
 **********************************/
 void AIcontrol::update(){
 
-    for(Controll index = A; index < END; ++index)//loop through each key
+    for(int index = 0; index < static_cast<int>(END); index++)//loop through each key
     {
         justPressed[index] = false;//Reset "justpressed" keys
 
         if ( Vpressed[index]) {//If the key is virtually pressed
-            press(index);//Press it(for REAL)
+            press(static_cast<Control>(index));//Press it(for REAL)
         } else {
-            unPress(index);//Unpress it(for REAL)
+            unPress(static_cast<Control>(index));//Unpress it(for REAL)
         }
 
 	if (Vtapped[index]){//If the key was only ment to be tapped - 
-	    virtual_unpress(index); //Unpress it!
+	    virtual_unpress(static_cast<Control>(index)); //Unpress it!
 	    Vtapped[index] = false; //Don't tap it next time.
 	}	
     }
