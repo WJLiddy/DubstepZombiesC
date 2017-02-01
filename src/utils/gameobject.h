@@ -1,3 +1,6 @@
+#ifndef GAMEOBJECT_H
+#define GAMEOBJECT_H
+
 #include "common.h"
 #include "../utils/coord.h"
 
@@ -10,3 +13,4 @@ class GameObject
 	GameObject(Coord, int, int);
 };
 
+#endif

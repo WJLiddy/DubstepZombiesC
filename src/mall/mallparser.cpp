@@ -1,5 +1,7 @@
 #include "mallparser.h"
+#include <allegro5/allegro.h>
 #include "../utils/common.h"
+#include "malldraw.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -8,12 +10,12 @@
 
 	MallParser::MallParser(ALLEGRO_BITMAP* base, ALLEGRO_BITMAP* always, std::set<Coord> collide, std::vector<MallObject> objects)
 	{
-
+		//mallDraw = MallDraw()//base,always);
 	}
 
-	MallParser MallParser::parse(std::string fname)
+	MallParser MallParser::parse(std::string pname)
 	{
-		ifstream in(fname);
+		ifstream in(pname+"mallscript.txt");
 		// Load in the file at std string. throw exception if we could not.
 		auto command_list = std::vector<std::vector<std::string>>(); 
 		std::string str;
@@ -33,35 +35,39 @@
     	std::cout << "total mallscript command count: " << command_list.size() << "\n";
 
     	//Define some variables to collect command information.
+    	ALLEGRO_BITMAP* always;
+    	ALLEGRO_BITMAP* base;  
+		
+		//Ignore these guys for now.
+		std::set<Coord> collide; 
+		std::vector<MallObject> objects;
+
     	for(std::vector<std::vector<std::string>>::iterator it = command_list.begin(); it != command_list.end(); ++it) 
     	{
     		//turns out you can't use strings 
-    		auto cmd =  it[0].at(0);
+    		auto cmd = it[0].at(0);
+
     		if(cmd == "a")
     		{
+    			std::string filename = (pname+it[0].at(1));
+    			always = al_load_bitmap(filename.c_str());
+    			if(!always)
+    			{
+    				std::cout << "MallScript error! No file named " << pname+it[0].at(1) << "\n";
+    			}
+   			}
 
-    		}
     		if(cmd == "b")
     		{
-
+    			std::string filename = pname+it[0].at(1);
+    			base = al_load_bitmap(filename.c_str());
+    			if(!base)
+    			{
+    				std::cout << "MallScript error! No file named " << pname+it[0].at(1) << "\n";
+    			}
     		}
 		}
-
-    // now we loop back and get the next line in 'str'
-
-	}
-	
-	MallDraw MallParser::mallDraw()
-	{
-
-	}
-
-	std::vector<MallObject> MallParser::mallObjects()
-	{
-
-	}
-	std::set<Coord> MallParser::collide()
-	{
-
+		//Done, return a base and always with no objects or collide.
+		return MallParser(base, always,collide, objects);
 	}
 

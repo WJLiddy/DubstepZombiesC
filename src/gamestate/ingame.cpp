@@ -7,7 +7,7 @@
 	InGame::InGame(Inputs* inputs) : GameState(inputs) 
 	{
         // Parse the mall map, collect the MapObjects, MapDraw, and set of collide coords (to be forward to ted's map class.) 
-        MallParser mp = MallParser::parse("res/maps/test/gamemap.txt");
+        MallParser mp = MallParser::parse("res/maps/test/");
 	}
 
     GameState* InGame::update_state()   

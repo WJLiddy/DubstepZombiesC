@@ -9,7 +9,8 @@ private:
     ALLEGRO_BITMAP* base_;
     ALLEGRO_BITMAP* always_;
 public:
+	MallDraw(ALLEGRO_BITMAP*,ALLEGRO_BITMAP*);
 	void draw_base(Coord);
-	void draw_scan(Coord);
+	void draw_always(Coord);
 };
 #endif 
