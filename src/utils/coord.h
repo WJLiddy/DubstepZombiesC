@@ -1,3 +1,6 @@
+#ifndef COORD_H
+#define COORD_H
+
 #include "common.h"
 
 using namespace std;
@@ -32,3 +35,4 @@ namespace std
 	};
 }
 		
+#endif

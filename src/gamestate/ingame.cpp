@@ -1,6 +1,11 @@
 #include "gamestate.h"
 #include "ingame.h"
+#include "../utils/coord.h"
+	// Set up our camera, load in bitmap, etc.
+	InGame::InGame(Inputs* inputs) : GameState(inputs) 
+	{
 
+	}
 
     GameState* InGame::update_state()   
     {

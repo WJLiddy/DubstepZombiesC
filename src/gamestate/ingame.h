@@ -4,11 +4,16 @@
 #include "../input/inputs.h"
 #include "gamestate.h"
 #include "../drawutils/drawutils.h"
+#include "../utils/coord.h"
 
 class InGame : public GameState
 {
+private:
+    //Top left pixel of the map that is displayed at (0,0).
+    Coord camera_ = Coord(100,100);
+    
 public:	
-	InGame(Inputs* inputs) : GameState(inputs) {}
+	InGame(Inputs*);
   
     GameState* update_state();
 
