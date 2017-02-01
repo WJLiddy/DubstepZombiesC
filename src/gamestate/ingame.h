@@ -11,7 +11,7 @@ class InGame : public GameState
 private:
     //Top left pixel of the map that is displayed at (0,0).
     Coord camera_ = Coord(100,100);
-    
+
 public:	
 	InGame(Inputs*);
   
