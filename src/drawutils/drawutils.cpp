@@ -2,6 +2,9 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "drawutils.h"
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_native_dialog.h>
 
     DrawUtils::DrawUtils()
     {
@@ -9,6 +12,7 @@
       // Initalize Allegro stuff
     	al_init_font_addon(); 
    		al_init_ttf_addon();
+      al_init_image_addon();
 
    		ALLEGRO_MONITOR_INFO aminfo;   
   		al_get_monitor_info(0 , &aminfo);   

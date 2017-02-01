@@ -27,7 +27,7 @@ add_library(mallparser STATIC src/mall/mallparser.cpp)
 add_executable(../bin/DZ src/launcher.cpp)
 
 target_link_libraries(ingame coord)
-
+target_link_libraries(mallparser malldraw)
 # link against it.
 target_link_libraries(../bin/DZ drawutils)
 target_link_libraries(../bin/DZ coord)
@@ -46,5 +46,8 @@ target_link_libraries(../bin/DZ mallparser)
 target_link_libraries(../bin/DZ allegro)
 target_link_libraries(../bin/DZ allegro_font)
 target_link_libraries(../bin/DZ allegro_ttf)
+target_link_libraries(../bin/DZ allegro_image)
+
+
 
 

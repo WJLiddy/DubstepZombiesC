@@ -10,7 +10,7 @@
 
 	MallParser::MallParser(ALLEGRO_BITMAP* base, ALLEGRO_BITMAP* always, std::set<Coord> collide, std::vector<MallObject> objects)
 	{
-		//mallDraw = MallDraw()//base,always);
+		mallDraw = new MallDraw(base,always);
 	}
 
 	MallParser MallParser::parse(std::string pname)
