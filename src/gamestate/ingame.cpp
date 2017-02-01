@@ -4,7 +4,8 @@
 	// Set up our camera, load in bitmap, etc.
 	InGame::InGame(Inputs* inputs) : GameState(inputs) 
 	{
-
+        // Parse the mall map, collect the MapObjects, MapDraw, and set of collide coords (to be forward to ted's map class.) 
+        
 	}
 
     GameState* InGame::update_state()   
