@@ -1,5 +1,6 @@
-#include "common.h"
-#include "../utils/gameobject"
+#include "../utils/common.h"
+#include "../utils/gameobject.h"
+#include "../utils/coord.h"
 
 class MallObject : GameObject
 {
@@ -10,9 +11,9 @@ private:
 	int frame_time_left_;
 public:
 	
-	MallObject(std::vector<ALLEGRO_BITMAP*>, std::vector<int> , Coords, int, int);
+	MallObject(std::vector<ALLEGRO_BITMAP*>, std::vector<int> , Coord, int, int);
 	void tick();
 	//implemenation may change here depending on ted's "map" class. Draws relative to camera.
-	void draw(Coords);
+	void draw(Coord);
 };
 

@@ -1,11 +1,13 @@
 #include "gamestate.h"
 #include "ingame.h"
 #include "../utils/coord.h"
+#include "../mall/mallparser.h"
+
 	// Set up our camera, load in bitmap, etc.
 	InGame::InGame(Inputs* inputs) : GameState(inputs) 
 	{
         // Parse the mall map, collect the MapObjects, MapDraw, and set of collide coords (to be forward to ted's map class.) 
-        
+        MallParser mp = MallParser::parse("res/maps/test/gamemap.txt");
 	}
 
     GameState* InGame::update_state()   

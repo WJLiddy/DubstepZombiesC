@@ -1,15 +1,17 @@
-#include "mall_parser.h"
-	MallParser::MallParser(ALLEGRO_BITMAP* base, ALLEGRO_BITMAP* always, std::set<Coord> collide; std::vector<MallObject> objects)
+#include "mallparser.h"
+#include "../utils/common.h"
+
+	MallParser::MallParser(ALLEGRO_BITMAP* base, ALLEGRO_BITMAP* always, std::set<Coord> collide, std::vector<MallObject> objects)
 	{
 
 	}
 
-	MallParser::parse(std::string)
+	MallParser MallParser::parse(std::string)
 	{
 
 	}
 	
-	MallParser::MallDraw mallDraw()
+	MallDraw MallParser::mallDraw()
 	{
 
 	}

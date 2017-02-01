@@ -1,8 +1,9 @@
 #include "gameobject.h"
+#include "../utils/coord.h"
 
-GameObject::GameObject(Coords c, int nw, int nh)
+GameObject::GameObject(Coord c, int nw, int nh)
 {
-	coords = c;
+	coord = c;
 	w = nw;
 	h = nh;
 }

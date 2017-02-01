@@ -1,9 +1,10 @@
 #include "malldraw.h"
-	MallDraw::draw_base(Coords camera,drawUtils& d)
+#include "../utils/coord.h"
+	void MallDraw::draw_base(Coord camera)
 	{
 
 	}
-	MallDraw::draw_scan(Coords camera,drawUtils& d)
+	void MallDraw::draw_scan(Coord camera)
 	{
 
 	}

@@ -18,6 +18,9 @@ add_library(gamestate STATIC src/gamestate/gamestate.cpp)
 add_library(titlescreen STATIC src/gamestate/titlescreen.cpp)
 add_library(ingame STATIC src/gamestate/ingame.cpp)
 
+add_library(malldraw STATIC src/mall/malldraw.cpp)
+add_library(mallobject STATIC src/mall/malldraw.cpp)
+add_library(mallparser STATIC src/mall/mallparser.cpp)
 
 
 #TODO: can i include headers instead of CPP files?
@@ -36,6 +39,9 @@ target_link_libraries(../bin/DZ keyboard)
 target_link_libraries(../bin/DZ gamestate)
 target_link_libraries(../bin/DZ titlescreen)
 target_link_libraries(../bin/DZ ingame)
+
+
+target_link_libraries(../bin/DZ mallparser)
 
 target_link_libraries(../bin/DZ allegro)
 target_link_libraries(../bin/DZ allegro_font)
