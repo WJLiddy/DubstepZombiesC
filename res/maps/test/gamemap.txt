@@ -1,0 +1,32 @@
+# GAME MAP SCRIPT
+# Here, define the map name, using n "name"
+
+n test
+
+# And tag the always, base, and collide layers with "a b c"
+
+a always.bmp
+b base.bmp
+c collide.bmp
+
+# define your objects here, use "do" (define object) to define a non-animated object.
+# The syntax is:
+# name          image                 collide
+
+do vending_south obj/vending_south.bmp obj/vending_south_c.bmp
+do vending_west obj/vending_west.bmp obj/vending_west_c.bmp
+
+# Then you have animated objects. Use "dao" (define animated object)
+# The syntax is:
+#   name     collide          animation + frame count (for as many frames as you like)
+
+dao fountain obj/fountain.bmp obj/f1.bmp 1 obj/f2.bmp 3
+
+# Finally, you place objects like this, using p (put)
+
+p vending_south 500 500
+p veding_west 200 200
+p fountain 134 352
+p fountain 234 192
+
+# And comments and new lines are always ignored.
