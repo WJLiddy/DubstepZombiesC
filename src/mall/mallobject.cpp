@@ -6,7 +6,7 @@
 		frames_ = frames;
 		frame_times_ = frame_times;
 		frame_ptr_ = 0;
-		frame_time_left_ = frame_times_[0];
+		frame_time_left_ = frame_times_.at(0);
 	}
 
 	void MallObject::tick()
@@ -20,7 +20,7 @@
 	}
 
 	//implemenation may change here depending on ted's "map" class. Draws relative to camera.
-	void draw(Coord camera)
+	void draw(Coord& camera)
 	{
 		//todo
 

@@ -41,15 +41,27 @@
 		ALLEGRO_BITMAP* base;
 		ALLEGRO_BITMAP* collide_bmp;
 
-		//Ignore these guys for now.
+		//Collide coord points for the mall base layer.
 		std::unordered_set<Coord> collide;
-		std::vector<MallObject> objects;
+
+		//Struct to temporarily store object information until it is placed.
+		struct obj_info
+		{
+			std::vector<ALLEGRO_BITMAP*> draw;
+			std::vector<int> frametimes;
+			ALLEGRO_BITMAP* debug_collide;
+			std::unordered_set<Coord> collide;
+		};
+
+		std::unordered_map<std::string, obj_info> object_template;
+
+		std::vector<MallObject> mall_objects;
 
 		for (std::vector<std::vector<std::string>>::iterator it = command_list.begin(); it != command_list.end(); ++it)
 		{
 			//turns out you can't use strings 
 			auto cmd = it[0].at(0);
-
+			std::cout << "EXECUTING: " << it[0].at(0) << " " << it[0].at(1) << "\n";
 			if (cmd == "a")
 			{
 				std::string filename = (pname + it[0].at(1));
@@ -83,41 +95,86 @@
 
 				//ok. Iterate through the map, and find the collission. This is gonna be slow, for now.
 				std::cout << "Finding colissions...";
-				al_lock_bitmap(collide_bmp, ALLEGRO_PIXEL_FORMAT_ANY_24_NO_ALPHA, ALLEGRO_LOCK_READONLY);
-				for (int x = 0; x != al_get_bitmap_width(collide_bmp); x++)
-				{
-					for (int y = 0; y != al_get_bitmap_height(collide_bmp); y++)
-					{
-						ALLEGRO_COLOR c = al_get_pixel(collide_bmp, x, y);
-						if (c.r == 1.0f && c.g == 0.0f && c.b == 1.0f)
-						{
-							collide.emplace(Coord(x, y));
-						}
-
-					}
-				}
-				al_unlock_bitmap(collide_bmp);
+				collide = generateCollideMap(collide_bmp);
 				std::cout << "  found " << collide.size() << "\n";
 			}
 
 			//do vending_west obj/vending_west.bmp obj/vending_west_c.bmp
-			//dao fountain obj/fountain.bmp obj/f1.bmp 1 obj/f2.bmp 3
 			if (cmd == "do")
 			{
-				/**
 				//Load in the bmp and collide. Also, make a struct that returns these two bitmaps.
-				std::string filename = pname + it[0].at(1);
-				base = al_load_bitmap(filename.c_str());
-				if (!base)
+				std::string objname = it[0].at(1);
+				obj_info o;
+				o.draw.push_back(al_load_bitmap((pname + it[0].at(2)).c_str()));
+				o.debug_collide = al_load_bitmap((pname + it[0].at(3)).c_str());
+				if (!o.draw.at(0))
 				{
-					std::cout << "MallScript error! No file named " << pname + it[0].at(1) << "\n";
+					std::cout << "MallScript error! Can't find " << pname + it[0].at(2) << "\n";
 				}
-				*/
+				if ( !o.debug_collide)
+				{
+					std::cout << "MallScript error! Can't find " << pname + it[0].at(3) << "\n";
+				}
+
+				o.collide = generateCollideMap(o.debug_collide);
+				o.frametimes.emplace_back(0);
+				object_template.emplace(objname, o);
 			}
 
+			//dao fountain obj/fountain.bmp obj/f1.bmp 1 obj/f2.bmp 3
+			if (cmd == "dao")
+			{
+				//Load in the bmp and collide. Also, make a struct that returns these two bitmaps.
+				std::string objname = it[0].at(1);
+				obj_info o;
+				o.debug_collide = al_load_bitmap((pname + it[0].at(2)).c_str());
+				o.collide = generateCollideMap(o.debug_collide);
+				//iterate over last parts of vector. TODO: Check for proper arg count.
+				for (int i = 3; i < it[0].size(); i += 2)
+				{
+					ALLEGRO_BITMAP* a = al_load_bitmap((pname + it[0].at(i)).c_str());
+					int ftime = std::stoi(it[0].at(i + 1));
+					if (!a || !o.debug_collide)
+					{
+						std::cout << "MallScript error! No file named " << pname + it[0].at(1) << "\n";
+					}
+					o.draw.insert(o.draw.begin(),a);
+					o.frametimes.insert(o.frametimes.begin(), ftime);
+				}
+				object_template.emplace(objname, o);
 			}
+
+			if (cmd == "p")
+			{
+				
+				//Finally, you place objects like this, using p (put)
+				//For now, objects are static, so we just place the coords on the mall base layer.
+				//Throw error if obj cannot be found!
+				auto obj_temp_itr = object_template.find(it[0].at(1));
+				if (obj_temp_itr == object_template.end())
+				{
+					std::cout << "MallScript error! No object declared named " << it[0].at(1) << "\n";
+				}
+				auto obj = obj_temp_itr->second;
+				Coord c = Coord(std::stoi(it[0].at(2)), std::stoi(it[0].at(3)));
+				int w = al_get_bitmap_width(obj.draw.at(0));
+				int h = al_get_bitmap_height(obj.draw.at(0));
+				std::cout << "finishing\n";
+				auto mall_object = MallObject(obj.draw, obj.frametimes, c, w, h);
+				//add mall object to list, add coords into the collide set (FOR NOW).
+				std::cout << "Placing! \n";
+				for (const auto& elem : obj.collide) 
+				{
+					auto collide_coord = Coord(elem.getX() + mall_object.coord.getX(), elem.getY() + mall_object.coord.getY());
+					collide.emplace(collide_coord);
+				}
+				mall_objects.emplace_back(mall_object);
+			}
+		}
+		std::cout << "Script Run! \n";
+
+
 			//Done, return a base and always with no objects or collide.
-			return MallParser(base, always, collide_bmp, collide, objects);
+			return MallParser(base, always, collide_bmp, collide, mall_objects);
 
 }
-

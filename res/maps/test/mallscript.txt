@@ -13,20 +13,18 @@ c collide.bmp
 # The syntax is:
 # name          image                 collide
 
-do vending_south obj/vending_south.bmp obj/vending_south_c.bmp
-do vending_west obj/vending_west.bmp obj/vending_west_c.bmp
+do vend_south obj/vendsouth.png obj/vend_c.png
 
 # Then you have animated objects. Use "dao" (define animated object)
 # The syntax is:
 #   name     collide          animation + frame count (for as many frames as you like)
 
-dao fountain obj/fountain.bmp obj/f1.bmp 1 obj/f2.bmp 3
+dao kiosk obj/kiosk_c.png obj/kiosk_1.png 15 obj/kiosk_2.png 45
 
 # Finally, you place objects like this, using p (put)
 
-p vending_south 500 500
-p veding_west 200 200
-p fountain 134 352
-p fountain 234 192
+p vend_south 100 100
+p kiosk 150 100
+p kiosk 200 200
 
 # And comments and new lines are always ignored.
