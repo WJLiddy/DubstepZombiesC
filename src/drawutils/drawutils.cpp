@@ -12,7 +12,7 @@
       // Initalize Allegro stuff
     	al_init_font_addon(); 
    		al_init_ttf_addon();
-      al_init_image_addon();
+        al_init_image_addon();
 
    		ALLEGRO_MONITOR_INFO aminfo;   
   		al_get_monitor_info(0 , &aminfo);   
@@ -28,18 +28,41 @@
    		display_ = al_create_display(screen_w_, screen_h_);
 
    		font_ = al_create_builtin_font();
+
+		temp_ = al_create_bitmap(screen_w_, screen_h_);
+
+
+		old_time = al_get_time();
+
+		al_set_target_backbuffer(display_);
+
+		ALLEGRO_TRANSFORM trans;
+		al_identity_transform(&trans);
+		al_scale_transform(&trans, screen_w_ / GAME_W, screen_h_ / GAME_H);
+		al_use_transform(&trans);
     }
 
     void DrawUtils::beginDraw()
     {
-    	al_set_target_bitmap(game_screen_);
-      al_clear_to_color(al_map_rgb(0,0,0));
+	   //Used a transform- Not used!
+      //al_set_target_bitmap(game_screen_);
+      //al_clear_to_color(al_map_rgb(0,0,0));
     }
 
     void DrawUtils::flip()
     {
-      al_set_target_bitmap(al_get_backbuffer(display_));
-      al_draw_scaled_bitmap(game_screen_,0,0, GAME_W, GAME_H,0,0,screen_w_,screen_h_, 0);
+		double new_time = al_get_time();
+		double delta = new_time - old_time;
+		old_time = new_time;
+
+	  drawCenteredString(255, 255, 0, GAME_W / 2, 10, "TARGET: " + std::to_string(1/60.0));
+	  drawCenteredString(255, 255, 0, GAME_W / 2, 20, "ACTUAL: " + std::to_string(delta));
+
+	 // al_set_target_bitmap(temp_);
+      //al_draw_scaled_bitmap(game_screen_, 0, 0, GAME_W, GAME_H, 0, 0, screen_w_, screen_h_, 0);      
+	 // al_draw_scaled_bitmap(game_screen_, 0, 0, GAME_W, GAME_H, 0, 0, GAME_W, GAME_H, 0);
+	  //al_set_target_backbuffer(display_);
+	  //al_draw_bitmap(temp_,0,0,0);
       al_flip_display();
     }
 

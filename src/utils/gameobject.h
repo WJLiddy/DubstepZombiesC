@@ -8,7 +8,6 @@ class GameObject
 {
 	public:
 	//public coords because I don't care about information hiding lmao
-	//TODO remove default init
 	Coord coord = Coord(0,0);
 	int w;
 	int h;

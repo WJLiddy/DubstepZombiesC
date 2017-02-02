@@ -34,10 +34,7 @@ int main(int argc, char **argv){
       return -1;
    }
  
-   // Necessary? al_register_event_source(event_queue, al_get_display_event_source(display));
 
-   al_register_event_source(event_queue, al_get_timer_event_source(timer));
- 
    al_start_timer(timer);
 
    // Load programatically from a file later, but for now,
@@ -47,6 +44,11 @@ int main(int argc, char **argv){
    DrawUtils drawUtils;
 
    GameState *gameState = new TitleScreen(&inputs);
+
+   al_register_event_source(event_queue, al_get_display_event_source(drawUtils.display_));
+   al_register_event_source(event_queue, al_get_timer_event_source(timer));
+
+
 
    while(1)
    {
@@ -63,10 +65,13 @@ int main(int argc, char **argv){
          frame_drawn = true;
       }
       else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-         break;
+         //clean mem leaks!
+		  return 0;
       }
  
-      if(frame_drawn && al_is_event_queue_empty(event_queue)) {
+      if(frame_drawn && al_is_event_queue_empty(event_queue))
+	  {
+
          gameState->draw(drawUtils);
          frame_drawn = false;
       }

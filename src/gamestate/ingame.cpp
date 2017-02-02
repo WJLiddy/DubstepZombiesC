@@ -14,14 +14,16 @@
 
     GameState* InGame::update_state()   
     {
+		p.update(*inputs_->getController(0));
+		camera_.setX(p.coord.getX() - DrawUtils::GAME_W / 2);
+		camera_.setY(p.coord.getY() - DrawUtils::GAME_H / 2);
         return NULL;
     }
 
     
     void InGame::draw_state(DrawUtils& drawUtils)  
     {
-        al_clear_to_color(al_map_rgb(50,10,70));
         md_->draw_base(camera_);
-        drawUtils.drawCenteredString(255,0,0,drawUtils.GAME_W/2,32,"U R PLAYIN GAEM");
+		p.draw(camera_);
         md_->draw_always(camera_);
     }

@@ -3,7 +3,7 @@
 
 GameObject::GameObject(Coord c, int nw, int nh)
 {
-	coord = Coord(c.getX(),c.getY());
+	coord = c;
 	w = nw;
 	h = nh;
 }
