@@ -5,7 +5,7 @@ n test
 
 # And tag the always, base, and collide layers with "a b c"
 
-a always.bmp
+a always.png
 b base.bmp
 c collide.bmp
 

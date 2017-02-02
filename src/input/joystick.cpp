@@ -6,3 +6,4 @@
     Default constructor:
     Installs Joystick* and 
     returns error on failure
+*/

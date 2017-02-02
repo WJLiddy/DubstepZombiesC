@@ -32,6 +32,7 @@ vector<GameObject> GameMap::get(Coord co)
 	return gm_[co];
 }
 
+/**
 int main()
 {
 	GameMap gm;
@@ -41,4 +42,5 @@ int main()
 	gm.get(3,5);
 	return 0;
 }
+*/
 
