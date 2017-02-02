@@ -19,4 +19,5 @@ https://wiki.allegro.cc/index.php?title=Install_Allegro_from_Ubuntu_PPAs
 On Windows it's a bit more involved, but not too bad
 https://wiki.allegro.cc/index.php?title=Windows,_Visual_Studio_2010_and_Allegro_5
 
-You can build the project by running build.sh. 
+On Ubuntu, you can build the project by running build.sh. 
+On Windows, install the allegro binaries as described in the link, set to "Release" then compile & run.
