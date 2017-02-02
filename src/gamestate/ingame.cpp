@@ -10,11 +10,12 @@
         // Parse the mall map, collect the MapObjects, MapDraw, and set of collide coords (to be forward to ted's map class.) 
         MallParser mp = MallParser::parse("res/maps/test/");
         md_ = mp.mallDraw;
+		collide_ = mp.collide;
 	}
 
     GameState* InGame::update_state()   
     {
-		p.update(*inputs_->getController(0));
+		p.update(*inputs_->getController(0),collide_);
 		camera_.setX(p.coord.getX() - DrawUtils::GAME_W / 2);
 		camera_.setY(p.coord.getY() - DrawUtils::GAME_H / 2);
         return NULL;
@@ -26,4 +27,5 @@
         md_->draw_base(camera_);
 		p.draw(camera_);
         md_->draw_always(camera_);
+		md_->draw_debug_collide(camera_);
     }

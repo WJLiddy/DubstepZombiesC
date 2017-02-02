@@ -71,6 +71,7 @@ double Coord::dist(Coord &a, Coord &b)
 	return sqrt(pow(a.getX()-b.getX(),2)+pow(a.getY()-b.getY(),2));
 }
 
+
 /*
 int main()
 {

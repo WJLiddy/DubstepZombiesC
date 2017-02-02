@@ -64,6 +64,7 @@
 	  //al_set_target_backbuffer(display_);
 	  //al_draw_bitmap(temp_,0,0,0);
       al_flip_display();
+	  al_clear_to_color(al_map_rgb(0, 0, 0));
     }
 
     void DrawUtils::drawCenteredString(int r, int g, int b, int x, int y, std::string s)

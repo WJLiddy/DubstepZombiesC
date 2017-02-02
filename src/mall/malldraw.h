@@ -8,9 +8,11 @@ class MallDraw
 private:
     ALLEGRO_BITMAP* base_;
     ALLEGRO_BITMAP* always_;
+	ALLEGRO_BITMAP* debug_collide_;
 public:
-	MallDraw(ALLEGRO_BITMAP*,ALLEGRO_BITMAP*);
+	MallDraw(ALLEGRO_BITMAP*,ALLEGRO_BITMAP*,ALLEGRO_BITMAP*);
 	void draw_base(Coord);
 	void draw_always(Coord);
+	void draw_debug_collide(Coord);
 };
 #endif 

@@ -15,6 +15,7 @@ private:
     Coord camera_ = Coord(100,100);
     MallDraw* md_;
     Player p = Player();
+	unordered_set<Coord> collide_;
 
 public:	
 	InGame(Inputs*);
