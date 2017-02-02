@@ -7,6 +7,7 @@
 		base_ = base;
 		always_ = always;
 		debug_collide_ = debug;
+		height = al_get_bitmap_height(base);
 	}
 	void MallDraw::draw_base(Coord camera)
 	{

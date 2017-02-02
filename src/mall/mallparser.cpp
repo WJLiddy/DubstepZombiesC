@@ -12,6 +12,7 @@
 	{
 		mallDraw = new MallDraw(base,always,debug_collide);
 		collide = ncollide;
+		mallObjects = objects;
 	}
 
 	// this will need refactoring.
@@ -160,7 +161,7 @@
 				int w = al_get_bitmap_width(obj.draw.at(0));
 				int h = al_get_bitmap_height(obj.draw.at(0));
 				std::cout << "finishing\n";
-				auto mall_object = MallObject(obj.draw, obj.frametimes, c, w, h);
+				auto mall_object = MallObject(obj.draw, obj.frametimes, obj.debug_collide, c, w, h);
 				//add mall object to list, add coords into the collide set (FOR NOW).
 				std::cout << "Placing! \n";
 				for (const auto& elem : obj.collide) 

@@ -14,5 +14,6 @@ public:
 	void draw_base(Coord);
 	void draw_always(Coord);
 	void draw_debug_collide(Coord);
+	int height;
 };
 #endif 
