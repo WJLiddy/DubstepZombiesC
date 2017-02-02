@@ -1,7 +1,7 @@
 #include "../utils/common.h"
 #include "../utils/gameobject.h"
 #include "../utils/coord.h"
-#include <allegro5\allegro.h>
+#include <allegro5/allegro.h>
 
 class MallObject : GameObject
 {

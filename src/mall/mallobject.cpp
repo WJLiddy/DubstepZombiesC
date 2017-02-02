@@ -1,5 +1,5 @@
 #include "mallobject.h"
-#include <allegro5\allegro.h>
+#include <allegro5/allegro.h>
 
 	MallObject::MallObject(std::vector<ALLEGRO_BITMAP*> frames, std::vector<int> frame_times, Coord c, int w, int h) : GameObject(c, w, h)
 	{
