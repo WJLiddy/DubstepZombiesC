@@ -1,16 +1,17 @@
-#ifndef MALLDRAW_H
-#define MALLDRAW_H
+#ifndef PLAYER_H
+#define PLAYER_H
 #include <allegro5/allegro.h>
-#include "../utils/coord.h"
+#include "../utils/gameobject.h"
+#include "../input/controller.h"
+
 //Drawing information about the game map.
-class MallDraw
+class Player : GameObject
 {
 private:
-    ALLEGRO_BITMAP* base_;
-    ALLEGRO_BITMAP* always_;
+    ALLEGRO_BITMAP* walk_;
 public:
-	MallDraw(ALLEGRO_BITMAP*,ALLEGRO_BITMAP*);
-	void draw_base(Coord);
-	void draw_always(Coord);
+    Player();
+    void update(Controller&); //Here is where I'd implement ted's game map
+	void draw(Coord&);
 };
 #endif 

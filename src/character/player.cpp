@@ -1,18 +1,19 @@
-#include "malldraw.h"
+#include "player.h"
 #include "../utils/coord.h"
+#include "../utils/gameobject.h"
 #include <allegro5/allegro.h>
+#include "../input/controller.h"
 
-	MallDraw::MallDraw(ALLEGRO_BITMAP* base,ALLEGRO_BITMAP* always)
+	Player::Player() : GameObject(Coord(50,50),20,20)
 	{
-		base_ = base;
-		always_ = always;
+		walk_ = al_load_bitmap("res/sprites/jacket/walk.png");
 	}
-	void MallDraw::draw_base(Coord camera)
+	void Player::update(Controller& i)
 	{
-		al_draw_bitmap(base_,-camera.getX(),-camera.getY(),0);
+        return;
 	}
-	void MallDraw::draw_always(Coord camera)
+	void Player::draw(Coord& camera)
 	{
-		al_draw_bitmap(always_,-camera.getX(),-camera.getY(),0);
+		al_draw_bitmap(walk_,0,0,0);
 	}
 

@@ -6,6 +6,7 @@
 #include "../drawutils/drawutils.h"
 #include "../utils/coord.h"
 #include "../mall/malldraw.h"
+#include "../character/player.h"
 
 class InGame : public GameState
 {
@@ -13,6 +14,7 @@ private:
     //Top left pixel of the map that is displayed at (0,0).
     Coord camera_ = Coord(100,100);
     MallDraw* md_;
+    Player p = Player();
 
 public:	
 	InGame(Inputs*);
