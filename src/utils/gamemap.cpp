@@ -3,13 +3,18 @@
 GameMap::GameMap()
 {
 	gm_.clear();
+	layer_.clear();
 }
 
-GameMap::GameMap(vector<Coord> collisions, GameObject collisionObject)
+GameMap::GameMap(vector<Coord> collisions, GameObject colObj)
 {
 	gm_.clear();
+	layer_.clear();
 	for (Coord co:collisions)
-		gm_[co].push_back(collisionObject);
+	{
+		gm_[co].insert(colObj);
+		layer_[colObj.getType()].insert(colObj);
+	}
 }
 
 void GameMap::put(int x, int y, GameObject go)
@@ -19,17 +24,41 @@ void GameMap::put(int x, int y, GameObject go)
 
 void GameMap::put(Coord co, GameObject go)
 {
-	gm_[co].push_back(go);
+	
+	for (Coord c : go.getBody())
+		gm_[go.getCoord()+c].insert(go);
+	layer_[go.getType()].insert(go);
 }
 
-vector<GameObject> GameMap::get(int x, int y)
+void GameMap::remove(GameObject go)
+{
+	for (Coord c: go.getBody())
+	{
+		gm_[go.getCoord()+c].erase(go);
+	}
+	layer_[go.getType()].erase(go);
+}
+
+void GameMap::move(GameObject go, Coord co)
+{
+	GameMap::remove(go);
+	GameMap::put(co,go);
+}
+
+
+unordered_set<GameObject> GameMap::get(int x, int y)
 {
 	return GameMap::get(Coord(x,y));
 }
 
-vector<GameObject> GameMap::get(Coord co)
+unordered_set<GameObject> GameMap::get(Coord co)
 {
 	return gm_[co];
+}
+
+unordered_set<GameObject> GameMap::collect(GameObject go)
+{
+	return layer_[go.getType()];
 }
 
 /**

@@ -6,13 +6,44 @@
 
 class GameObject
 {
+	//>"Gotta follow good coding practice"
+	//>"Everything is public"
+	//>mfw
+	private:
+	Coord co_;
+	string type_;
+	unordered_set<Coord> body_;
+	string uuid_;
+	string name_;
+
 	public:
-	//public coords because I don't care about information hiding lmao
-	Coord coord = Coord(0,0);
-	int w;
-	int h;
-	//Also a width and a height.
-	GameObject(Coord, int, int);
+	GameObject(Coord, string, unordered_set<Coord>,string);
+	
+	string getType() {return type_;}
+	
+	unordered_set<Coord> getBody() {return body_};
+	
+	Coord getCoord() {return co_;}
+	void setCoord(Coord c) {co_ = c;}
+	
+	string uuid() {return uuid_;}
+	
+	void setName(string name){name_ = name;}
+	string getName(){return name_;}
+
+	bool operator==(const GameObject&) const;
 };
+
+namespace std
+{
+	template<>
+	struct hash<GameObject>
+	{
+		size_t operator()(const GameObject& go) const
+		{
+			return hash<string>(go.uuid());
+		}
+	};
+}
 
 #endif
