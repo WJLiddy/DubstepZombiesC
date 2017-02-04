@@ -35,7 +35,7 @@ long long UUIDZ::gettime()
 	// ON Windows, for some reason, this string isn't long enough, so I had to add more digits. Here's how I did it, feel free to change.
 	// Drawback: If a user has their clock set to a very early time this might break. 
 	// Also, multing by 1000000L does not guaratnee an even hash distro
-	return (long long)t1.time_since_epoch().count() * 1000000L;
+	return (long long)t1.time_since_epoch().count() * 1000003L;
 }
 
 

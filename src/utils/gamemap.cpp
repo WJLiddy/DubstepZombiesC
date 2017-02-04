@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 {
 	GameMap gm;
 	unordered_set<Coord> body;
-	body.emplace(Coord(1, 1));
+	body.insert(Coord(1, 1));
 	GameObject test1(Coord(1,1), "test1", body);
 	gm.put(test1);
 	return 0;
