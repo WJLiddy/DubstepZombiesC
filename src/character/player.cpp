@@ -4,6 +4,11 @@
 #include <allegro5/allegro.h>
 #include "../input/controller.h"
 
+int Player::player_size = 10;
+double  Player::SPEED_PER_FRAME = 0.7;
+int  Player::draw_offset_x = -5;
+int  Player::draw_offset_y = -10;
+
 	//Player hardcoded to be 10 by 10 for now.
 	Player::Player() : RenderObject(Coord(50,50),"PLAYER",Coord::generateRect(player_size, player_size))
 	{

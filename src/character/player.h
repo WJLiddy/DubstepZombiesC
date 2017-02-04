@@ -20,18 +20,19 @@ private:
 	//move is discrete, so we can "charge" between frames.
 	double delta_move_ = 0;
 
-	const double SPEED_PER_FRAME = 0.7;
-	const int draw_offset_x = -5;
-	const int draw_offset_y = -10;
 
-	const int spritesheet_size = 20;
+
+	static const int spritesheet_size = 20;
 
 	Coord validate_move(Coord delta, GameMap map);
 public:
 	//This'll be moved to a different class soon
 	enum Direction {N = 0, NW = 1, W = 2, SW = 3, S = 4, SE = 5, E = 6, NE = 7};
 
-	const int player_size = 10;
+	static int player_size;
+	static double SPEED_PER_FRAME;
+	static int draw_offset_x;
+	static int draw_offset_y;
 
 	Coord toDeltaCoord(Direction d)
 	{

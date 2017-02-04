@@ -10,7 +10,7 @@ class UUIDZ
         mt19937 rd_;
 
         public:
-        UUIDZ(string seed);
+        UUIDZ();
         string getUUID();
 		long long gettime();
 };

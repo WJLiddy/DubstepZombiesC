@@ -2,6 +2,9 @@
 #include "../utils/coord.h"
 #include "../utils/uuidz.h"
 
+//based on clock
+UUIDZ GameObject::uuidgen;
+
 GameObject::GameObject(Coord c, string type, unordered_set<Coord> b)
 {
 	co_ = c;

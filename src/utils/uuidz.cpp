@@ -1,8 +1,8 @@
 #include "uuidz.h"
 
-UUIDZ::UUIDZ(string seedstr)
+UUIDZ::UUIDZ()
 {
-	string seed = seedstr == "" ? to_string(gettime()) : seedstr;
+	string seed = to_string(gettime());
 	seed_seq s (seed.begin(),seed.end());
 	rd_.seed(s);
 }
