@@ -23,8 +23,7 @@ void GameMap::put(GameObject go)
 	
 	for (Coord c : go.getBody())
 	{
-		Coord c = go.getCoord() + c;
-		gm_.at(c).insert(go);
+		gm_.at(go.getCoord()+c).insert(go);
 	}
 	layer_[go.getType()].insert(go);
 }
