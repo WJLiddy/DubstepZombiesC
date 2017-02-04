@@ -61,15 +61,15 @@ unordered_set<GameObject> GameMap::collect(GameObject go)
 	return layer_[go.getType()];
 }
 
-/**
-int main()
+
+int main(int argc, char **argv) 
 {
 	GameMap gm;
-	GameObject go;
-	gm.put(Coord(3,4),go);
-	gm.get(Coord(3,4));
-	gm.get(3,5);
+	unordered_set<Coord> body;
+	body.emplace(Coord(1, 1));
+	GameObject test1(Coord(1,1), "test1", body);
+	gm.put(test1);
 	return 0;
 }
-*/
+
 

@@ -12,7 +12,8 @@
         MallParser mp = MallParser::parse("res/maps/test/");
         md_ = mp.mallDraw;
 		mall_objects_ = mp.mallObjects;
-		GameObject gm(Coord(), "MALL_STATIC_BASE_COLLIDE", mp.collide);
+		GameMap m_;
+		GameObject gm(Coord(0,0), "MALL_STATIC_BASE_COLLIDE", mp.collide);
 		m_.put(gm);
 	}
 
