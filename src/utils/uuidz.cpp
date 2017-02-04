@@ -32,16 +32,22 @@ long long UUIDZ::gettime()
 {
 	using namespace std::chrono;
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
-	return (long long)t1.time_since_epoch().count();
+	// ON Windows, for some reason, this string isn't long enough, so I had to add more digits. Here's how I did it, feel free to change.
+	// Drawback: If a user has their clock set to a very early time this might break. 
+	// Also, multing by 1000000L does not guaratnee an even hash distro
+	return (long long)t1.time_since_epoch().count() * 1000000L;
 }
 
 
+/**
 int main()
 {
 	UUIDZ gen;
 	for (int i = 0; i != 10000; i++)
 	{
+		cout << "ITER " << i << endl;
 		cout << gen.getUUID() << endl;
 	}
 }
+*/
 
