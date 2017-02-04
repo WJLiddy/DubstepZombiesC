@@ -1,13 +1,13 @@
 #include "mallobject.h"
 #include <allegro5/allegro.h>
+#include "../utils/renderobject.h"
 
-	MallObject::MallObject(std::vector<ALLEGRO_BITMAP*> frames, std::vector<int> frame_times, ALLEGRO_BITMAP* debug, Coord c, int w, int h) : GameObject(c, w, h)
+	MallObject::MallObject(std::vector<ALLEGRO_BITMAP*> frames, std::vector<int> frame_times, unordered_set<Coord> body, Coord position, int h) : RenderObject(position, "MALL_STATIC_OBJECT", body)
 	{
-		debug_ = debug;
 		frames_ = frames;
 		frame_times_ = frame_times;
 		frame_ptr_ = 0;
-		//frame_time_left_ = frame_times_.at(0);
+		frame_time_left_ = frame_times_.at(0);
 	}
 
 	void MallObject::tick()
@@ -22,14 +22,8 @@
 		}
 	}
 
-	//implemenation may change here depending on ted's "map" class. Draws relative to camera.
 	void MallObject::draw(Coord& camera)
 	{
-		al_draw_bitmap(frames_.at(frame_ptr_), coord.getX() - camera.getX(), coord.getY() - camera.getY(), 0);
+		al_draw_bitmap(frames_.at(frame_ptr_), getCoord().getX() - camera.getX(), getCoord().getY() - camera.getY(), 0);
 
-	}
-
-	void MallObject::drawDebug(Coord& camera)
-	{
-		al_draw_bitmap(debug_, coord.getX() - camera.getX(), coord.getY() - camera.getY(), 0);
 	}

@@ -13,9 +13,9 @@
         md_ = mp.mallDraw;
 		mall_objects_ = mp.mallObjects;
 		
-		GameObject gm(Coord(), "MallCollideStatic", mp.collide);
+		GameObject gm(Coord(), "MALL_STATIC_BASE_COLLIDE", mp.collide);
 
-		GameMap m = GameMap()
+		GameMap m = GameMap();
 	}
 
     GameState* InGame::update_state()   
@@ -63,3 +63,4 @@
 		if (debug_)
 			md_->draw_debug_collide(camera_);
     }
+
