@@ -9,6 +9,7 @@ class Coord
 {
         int x,y;
 public:
+		Coord();
         Coord(int,int);
         int setX(int);int setY(int);
         bool setCoord(int,int);
@@ -33,6 +34,18 @@ namespace std
 			return ((hash<int>()(co.getX()))^(hash<int>()(co.getY())));
 		}
 	};
+}
+
+Coord operator+(Coord &a, Coord &b)
+{
+	int newx = a.getX() + b.getX();
+	int newy = a.getY() + b.getY();
+	return Coord(newx, newy);
+}
+
+Coord operator-(Coord &a, Coord &b)
+{
+	return Coord(a.getX() - b.getX(), a.getY() - b.getY());
 }
 		
 #endif

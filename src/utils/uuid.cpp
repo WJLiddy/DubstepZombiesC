@@ -1,16 +1,17 @@
 #include "uuid.h"
 
-UUID::UUID(string seed)
+UUIDZ::UUIDZ(string seedstr)
 {
+	string seed = seedstr == "" ? to_string(gettime()) : seedstr;
 	seed_seq s (seed.begin(),seed.end());
 	rd_.seed(s);
 }
 
 //modified version of UUIDv4
-string UUID::getUUID()
+string UUIDZ::getUUID()
 {
 	stringstream ss;
-	ss << hex << UUID::gettime();
+	ss << hex << UUIDZ::gettime();
 	string res = ss.str();
 	res.replace(15,1,"-");
 	res.insert(12,"1");
@@ -27,7 +28,7 @@ string UUID::getUUID()
 	return res;
 }
 
-long long UUID::gettime()
+long long UUIDZ::gettime()
 {
 	using namespace std::chrono;
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();

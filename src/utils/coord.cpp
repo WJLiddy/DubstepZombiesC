@@ -1,6 +1,11 @@
 #include "coord.h"
 
-Coord::Coord(int xv, int yv)
+Coord::Coord()
+{
+	x = 0; y = 0;
+}
+
+Coord::Coord(int xv = 0, int yv = 0)
 {
 	x = xv;y = yv;
 }
@@ -54,17 +59,7 @@ ostream &operator<<(ostream &os, Coord c) {
 	return os << c.getX() << "," << c.getY() << "\n";
 }
 
-Coord operator+(Coord &a, Coord &b)
-{
-	int newx = a.getX()+b.getX();
-	int newy = a.getY()+b.getY();
-	return Coord(newx,newy);
-}
 
-Coord operator-(Coord &a, Coord &b)
-{
-	return Coord(a.getX()-b.getX(),a.getY()-b.getY());
-}
 
 double Coord::dist(Coord &a, Coord &b)
 {

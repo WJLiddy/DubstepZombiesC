@@ -3,7 +3,8 @@
 
 #include "common.h"
 #include "../utils/coord.h"
-
+#include "../utils/gameobject.h"
+#include "../utils/uuid.h"
 class GameObject
 {
 	//>"Gotta follow good coding practice"
@@ -16,22 +17,27 @@ class GameObject
 	string uuid_;
 	string name_;
 
+
 	public:
-	GameObject(Coord, string, unordered_set<Coord>,string);
+	//Hardcoded seed
+	static UUIDZ uuidgen;
+
+	GameObject(Coord, string, unordered_set<Coord>);
 	
-	string getType() {return type_;}
+	string getType() { return type_; };
 	
-	unordered_set<Coord> getBody() {return body_};
+	unordered_set<Coord> getBody() { return body_; };
 	
-	Coord getCoord() {return co_;}
-	void setCoord(Coord c) {co_ = c;}
+	Coord getCoord() { return co_; };
+	void setCoord(Coord c) { co_ = c; };
 	
-	string uuid() {return uuid_;}
+	string uuid() const{ return uuid_; };
 	
-	void setName(string name){name_ = name;}
-	string getName(){return name_;}
+	void setName(string name) { name_ = name; };
+	string getName() { return name_; };
 
 	bool operator==(const GameObject&) const;
+
 };
 
 namespace std
@@ -41,7 +47,8 @@ namespace std
 	{
 		size_t operator()(const GameObject& go) const
 		{
-			return hash<string>(go.uuid());
+			hash<string> hasher;
+			return hasher(go.uuid());
 		}
 	};
 }

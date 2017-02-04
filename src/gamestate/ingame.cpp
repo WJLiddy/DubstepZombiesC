@@ -3,6 +3,7 @@
 #include "../utils/coord.h"
 #include "../mall/mallparser.h"
 #include "../mall/malldraw.h"
+#include "../utils/gamemap.h"
 
 	// Set up our camera, load in bitmap, etc.
 	InGame::InGame(Inputs* inputs) : GameState(inputs) 
@@ -10,8 +11,11 @@
         // Parse the mall map, collect the MapObjects, MapDraw, and set of collide coords (to be forward to ted's map class.) 
         MallParser mp = MallParser::parse("res/maps/test/");
         md_ = mp.mallDraw;
-		collide_ = mp.collide;
 		mall_objects_ = mp.mallObjects;
+		
+		GameObject gm(Coord(), "MallCollideStatic", mp.collide);
+
+		GameMap m = GameMap()
 	}
 
     GameState* InGame::update_state()   

@@ -1,20 +1,16 @@
 #include "gameobject.h"
 #include "../utils/coord.h"
+#include "../utils/uuid.h"
 
-GameObject::GameObject(Coord c, string type, unordered_set<Coord> body_, string uuid)
+GameObject::GameObject(Coord c, string type, unordered_set<Coord> b)
 {
 	co_ = c;
 	body_ = b;
 	type_ = type;
-	uuid_ = uuid;
+	uuid_ = uuidgen.getUUID();
 }
 
-bool operator==(const GameObject& other) const
+bool GameObject::operator==(const GameObject& other) const
 {
-	return uuid() == other.uuid();
-}
-
-ostream &operator<<(ostream &os, GameObject go)
-{
-	return os << go.getCoord() << "," << go.getType() << "," << go.getName() << "\n";
+	return uuid_ == other.uuid();
 }

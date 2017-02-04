@@ -17,8 +17,7 @@ class GameMap
 
 	//puts the *entire* GO onto the map i.e. the rectangle, 
 	//and the anchor coord i.e. the top-left into the layer
-	void put(int,int,GameObject);
-	void put(Coord,GameObject);
+	void put(GameObject);
 	
 	//inverse of put
 	void remove(GameObject);

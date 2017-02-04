@@ -1,4 +1,5 @@
 #include "gamemap.h"
+#include "coord.h"
 
 GameMap::GameMap()
 {
@@ -17,16 +18,14 @@ GameMap::GameMap(vector<Coord> collisions, GameObject colObj)
 	}
 }
 
-void GameMap::put(int x, int y, GameObject go)
-{
-	GameMap::put(Coord(x,y),go);
-}
-
-void GameMap::put(Coord co, GameObject go)
+void GameMap::put(GameObject go)
 {
 	
 	for (Coord c : go.getBody())
-		gm_[go.getCoord()+c].insert(go);
+	{
+		Coord c = go.getCoord() + c;
+		gm_.at(c).insert(go);
+	}
 	layer_[go.getType()].insert(go);
 }
 
@@ -34,7 +33,7 @@ void GameMap::remove(GameObject go)
 {
 	for (Coord c: go.getBody())
 	{
-		gm_[go.getCoord()+c].erase(go);
+		gm_.at(go.getCoord()+c).erase(go);
 	}
 	layer_[go.getType()].erase(go);
 }
@@ -42,7 +41,8 @@ void GameMap::remove(GameObject go)
 void GameMap::move(GameObject go, Coord co)
 {
 	GameMap::remove(go);
-	GameMap::put(co,go);
+	go.setCoord(co);
+	GameMap::put(go);
 }
 
 

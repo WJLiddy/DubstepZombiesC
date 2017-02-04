@@ -117,6 +117,7 @@
     <ClCompile Include="src\utils\coord.cpp" />
     <ClCompile Include="src\utils\gamemap.cpp" />
     <ClCompile Include="src\utils\gameobject.cpp" />
+    <ClCompile Include="src\utils\uuid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\player.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="src\utils\coord.h" />
     <ClInclude Include="src\utils\gamemap.h" />
     <ClInclude Include="src\utils\gameobject.h" />
+    <ClInclude Include="src\utils\uuid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
