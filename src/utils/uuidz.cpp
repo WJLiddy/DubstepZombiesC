@@ -35,9 +35,13 @@ long long UUIDZ::gettime()
 	return (long long)t1.time_since_epoch().count();
 }
 
-/*
+
 int main()
 {
-	UUID gen(to_string(gen.gettime()));
-	cout << gen.getUUID()<<endl;
-}*/
+	UUIDZ gen;
+	for (int i = 0; i != 10000; i++)
+	{
+		cout << gen.getUUID() << endl;
+	}
+}
+
