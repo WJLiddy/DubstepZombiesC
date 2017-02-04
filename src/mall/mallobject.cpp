@@ -25,5 +25,9 @@
 	void MallObject::draw(Coord& camera)
 	{
 		al_draw_bitmap(frames_.at(frame_ptr_), getCoord().getX() - camera.getX(), getCoord().getY() - camera.getY(), 0);
+	}
 
+	int MallObject::getBottom()
+	{
+		return getCoord().getY() + h_;
 	}

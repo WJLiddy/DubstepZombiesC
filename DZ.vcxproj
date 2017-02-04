@@ -117,7 +117,7 @@
     <ClCompile Include="src\utils\coord.cpp" />
     <ClCompile Include="src\utils\gamemap.cpp" />
     <ClCompile Include="src\utils\gameobject.cpp" />
-    <ClCompile Include="src\utils\uuid.cpp" />
+    <ClCompile Include="src\utils\uuidz.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\player.h" />

@@ -16,14 +16,16 @@ private:
 	int frame_time_left_;
 
 	int h_;
+
 public:
 	
 	MallObject(std::vector<ALLEGRO_BITMAP*>, std::vector<int>, unordered_set<Coord> body, Coord, int);
+	
 	void tick();
-	//implemenation may change here depending on ted's "map" class. Draws relative to camera.
-	void draw(Coord&);
 
-	void drawDebug(Coord&);
+	void draw(Coord&);
+	int getBottom();
+	//void drawDebug(Coord&);
 };
 
 #endif

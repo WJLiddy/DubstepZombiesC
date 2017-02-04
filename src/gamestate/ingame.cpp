@@ -12,17 +12,14 @@
         MallParser mp = MallParser::parse("res/maps/test/");
         md_ = mp.mallDraw;
 		mall_objects_ = mp.mallObjects;
-		
 		GameObject gm(Coord(), "MALL_STATIC_BASE_COLLIDE", mp.collide);
-
-		GameMap m = GameMap();
+		m_.put(gm);
 	}
 
     GameState* InGame::update_state()   
     {
 		for (auto &value : mall_objects_) 
 		{
-
 			value.tick();
 		}
 		
@@ -31,9 +28,9 @@
 			debug_ = !debug_;
 		}
 
-		p.update(*inputs_->getController(0),collide_);
-		camera_.setX(p.coord.getX() - DrawUtils::GAME_W / 2);
-		camera_.setY(p.coord.getY() - DrawUtils::GAME_H / 2);
+		p_.update(*inputs_->getController(0),m_);
+		camera_.setX(p_.getCoord().getX() - DrawUtils::GAME_W / 2 + (p_.player_size / 2));
+		camera_.setY(p_.getCoord().getY() - DrawUtils::GAME_H / 2 + (p_.player_size / 2));
         return NULL;
     }
 
@@ -42,25 +39,28 @@
     {
 		md_->draw_base(camera_);
 
-		// VERY NAIVE IMPL: Should sort here, later, rather that (H * P) I can do this in P log P.
-		for (int y = 0; y != md_->height; y++)
-		{
+		std::vector<RenderObject*> to_render;
 
-			for (auto &value : mall_objects_)
-			{
-				if (value.coord.getY() + value.h == y)
-				{
-					value.draw(camera_);
-					if (debug_)
-						value.drawDebug(camera_);
-				}
-			}
-			if(p.coord.getY() + p.h == y)
-				p.draw(camera_);
+		for (auto value : mall_objects_)
+		{
+			to_render.push_back(&value);
 		}
 
+		to_render.push_back(&p_);
+		
+		std::sort(std::begin(to_render), std::end(to_render), RenderObject::lower);
+
+
+		for (auto value : to_render)
+		{
+			value->draw(camera_);
+			//draw colission info (TODO)
+			//if (debug_)
+				//value.drawDebug(camera_);
+		}
         md_->draw_always(camera_);
-		if (debug_)
-			md_->draw_debug_collide(camera_);
+		//draw colission info (TODO)
+		//if (debug_)
+			//md_->draw_debug_collide(camera_);
     }
 

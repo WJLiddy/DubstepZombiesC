@@ -4,7 +4,7 @@
 #include "common.h"
 #include "../utils/coord.h"
 #include "../utils/gameobject.h"
-#include "../utils/uuid.h"
+#include "../utils/uuidz.h"
 
 class RenderObject : public GameObject
 {
@@ -14,12 +14,14 @@ class RenderObject : public GameObject
 		//Draw relative to camera
 		virtual void draw(Coord&) = 0;
 		virtual int getBottom() = 0;
+
+		static bool lower(RenderObject* struct1, RenderObject* struct2)
+		{
+			return (struct1->getBottom() < struct2->getBottom());
+		}
 };
 
-bool lower(RenderObject& struct1, RenderObject& struct2)
-{
-	return (struct1.getBottom() < struct2.getBottom());
-}
+
 
 
 #endif

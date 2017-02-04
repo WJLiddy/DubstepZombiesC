@@ -1,3 +1,6 @@
+#ifndef GAME_MAP
+#define GAME_MAP
+
 #include "common.h"
 #include "coord.h"
 #include "gameobject.h"
@@ -33,3 +36,5 @@ class GameMap
 	//i.e. the top-left anchor
 	unordered_set<GameObject> collect(GameObject);
 };
+
+#endif

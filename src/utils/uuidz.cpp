@@ -1,4 +1,4 @@
-#include "uuid.h"
+#include "uuidz.h"
 
 UUIDZ::UUIDZ(string seedstr)
 {

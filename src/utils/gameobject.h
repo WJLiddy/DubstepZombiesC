@@ -4,12 +4,9 @@
 #include "common.h"
 #include "../utils/coord.h"
 #include "../utils/gameobject.h"
-#include "../utils/uuid.h"
+#include "../utils/uuidz.h"
 class GameObject
 {
-	//>"Gotta follow good coding practice"
-	//>"Everything is public"
-	//>mfw
 	private:
 	Coord co_;
 	string type_;

@@ -18,10 +18,14 @@ public:
         int getY() const{return y;}
 
         bool operator==(const Coord&) const;
+		Coord operator+(const Coord&) const;
+		Coord operator-(const Coord&) const;
+
         vector<Coord> getAdj4();
         vector<Coord> getAdj8();
 
         static double dist(Coord&, Coord&);
+		static unordered_set<Coord> generateRect(int w, int h);
 };
 
 namespace std
@@ -35,17 +39,5 @@ namespace std
 		}
 	};
 }
-
-Coord operator+(Coord &a, Coord &b)
-{
-	int newx = a.getX() + b.getX();
-	int newy = a.getY() + b.getY();
-	return Coord(newx, newy);
-}
-
-Coord operator-(Coord &a, Coord &b)
-{
-	return Coord(a.getX() - b.getX(), a.getY() - b.getY());
-}
-		
+	
 #endif
