@@ -1,0 +1,10 @@
+cmake_minimum_required (VERSION 2.6)
+add_compile_options(-std=c++11)
+
+#Project Name:
+project (DubstepZombies)
+
+include_directories(/usr/include/allegro5)
+
+#BUILD ORDER
+#Comment out any libaries not ready
