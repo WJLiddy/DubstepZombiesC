@@ -7,9 +7,11 @@ using namespace std;
 
 class Coord
 {
+	private:
         int x,y;
-public:
-		Coord();
+
+	public:
+	Coord();
         Coord(int,int);
         int setX(int);int setY(int);
         bool setCoord(int,int);
@@ -18,15 +20,28 @@ public:
         int getY() const{return y;}
 
         bool operator==(const Coord&) const;
-		Coord operator+(const Coord&) const;
-		Coord operator-(const Coord&) const;
+	Coord operator+(const Coord&) const;
+	Coord operator-(const Coord&) const;
 
         vector<Coord> getAdj4();
         vector<Coord> getAdj8();
 
         static double dist(Coord&, Coord&);
-		static unordered_set<Coord> generateRect(int w, int h);
+	static unordered_set<Coord> generateRect(int w, int h);
+
+	operator string() const
+	{
+		return to_str();
+	}
+
+	string to_str() const
+	{
+		return "("+to_string(getX())+","+to_string(getY())+")";
+	}
+
 };
+
+ostream &operator<<(ostream&, Coord);
 
 namespace std
 {

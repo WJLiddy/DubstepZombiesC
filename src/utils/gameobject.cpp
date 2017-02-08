@@ -17,3 +17,10 @@ bool GameObject::operator==(const GameObject& other) const
 {
 	return uuid_ == other.uuid();
 }
+
+ostream &operator<<(ostream& os, GameObject go) 
+{
+	return os << (string)go;
+}
+
+

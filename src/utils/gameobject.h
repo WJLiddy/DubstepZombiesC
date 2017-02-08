@@ -21,21 +21,32 @@ class GameObject
 
 	GameObject(Coord, string, unordered_set<Coord>);
 	
-	string getType() { return type_; };
+	string getType() const { return type_; }
 	
-	unordered_set<Coord> getBody() { return body_; };
+	unordered_set<Coord> getBody() { return body_; }
 	
-	Coord getCoord() { return co_; };
-	void setCoord(Coord c) { co_ = c; };
+	Coord getCoord() const { return co_; }
+	void setCoord(Coord c) { co_ = c; }
 	
-	string uuid() const{ return uuid_; };
+	string uuid() const{ return uuid_; }
 	
-	void setName(string name) { name_ = name; };
-	string getName() { return name_; };
+	void setName(string name) { name_ = name; }
+	string getName() const { return name_ == ""?"unnamed":name_; }
 
 	bool operator==(const GameObject&) const;
 
+	operator string() const
+	{
+		return to_str();
+	}
+
+	string to_str() const
+	{
+		return getName()+":<"+getType()+","+uuid()+", at:"+getCoord().to_str()+">";
+	}
 };
+
+ostream &operator<<(ostream&, GameObject);
 
 namespace std
 {

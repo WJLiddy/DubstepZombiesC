@@ -69,11 +69,9 @@ vector<Coord> Coord::getAdj8()
 	return res;
 }
 
-ostream &operator<<(ostream &os, Coord c) { 
-	return os << c.getX() << "," << c.getY() << "\n";
+ostream &operator<<(ostream &os, Coord co) { 
+	return os << (string)co;
 }
-
-
 
 double Coord::dist(Coord &a, Coord &b)
 {
@@ -92,7 +90,6 @@ unordered_set<Coord> Coord::generateRect(int w, int h)
 	}
 	return set;
 }
-
 
 /*
 int main()
