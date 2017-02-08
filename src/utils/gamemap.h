@@ -1,3 +1,6 @@
+#ifndef GAME_MAP
+#define GAME_MAP
+
 #include "common.h"
 #include "coord.h"
 #include "gameobject.h"
@@ -17,8 +20,7 @@ class GameMap
 
 	//puts the *entire* GO onto the map i.e. the rectangle, 
 	//and the anchor coord i.e. the top-left into the layer
-	void put(int,int,GameObject);
-	void put(Coord,GameObject);
+	void put(GameObject);
 	
 	//inverse of put
 	void remove(GameObject);
@@ -34,3 +36,5 @@ class GameMap
 	//i.e. the top-left anchor
 	unordered_set<GameObject> collect(GameObject);
 };
+
+#endif

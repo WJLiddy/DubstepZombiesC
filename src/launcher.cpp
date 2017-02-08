@@ -9,7 +9,7 @@
 
 const float FPS = 60;
 
-int main(int argc, char **argv){
+int pmain(int argc, char **argv){
 
    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
    ALLEGRO_TIMER *timer = NULL;
@@ -48,7 +48,7 @@ int main(int argc, char **argv){
    al_register_event_source(event_queue, al_get_display_event_source(drawUtils.display_));
    al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-
+   UUID uuid();
 
    while(1)
    {

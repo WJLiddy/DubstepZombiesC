@@ -15,7 +15,8 @@ private:
     //Top left pixel of the map that is displayed at (0,0).
     Coord camera_ = Coord(100,100);
     MallDraw* md_;
-    Player p = Player();
+	Player p_;
+	GameMap m_;
 	unordered_set<Coord> collide_;
 	bool debug_;
 	std::vector<MallObject> mall_objects_;
@@ -28,4 +29,5 @@ public:
     void draw_state(DrawUtils& drawUtils);
 
 };
+
 #endif

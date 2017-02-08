@@ -8,15 +8,28 @@
 #include <algorithm>
 #include <iterator>
 
-	MallParser::MallParser(ALLEGRO_BITMAP* base, ALLEGRO_BITMAP* always, ALLEGRO_BITMAP* debug_collide, std::unordered_set<Coord> ncollide, std::vector<MallObject> objects)
+	std::unordered_set<Coord> MallParser::generateCollideMap(ALLEGRO_BITMAP* a)
 	{
-		mallDraw = new MallDraw(base,always,debug_collide);
-		collide = ncollide;
-		mallObjects = objects;
+		std::unordered_set<Coord> collide;
+		al_lock_bitmap(a, ALLEGRO_PIXEL_FORMAT_ANY_24_NO_ALPHA, ALLEGRO_LOCK_READONLY);
+		for (int x = 0; x != al_get_bitmap_width(a); x++)
+		{
+			for (int y = 0; y != al_get_bitmap_height(a); y++)
+			{
+				ALLEGRO_COLOR c = al_get_pixel(a, x, y);
+				if (c.r == 1.0f && c.g == 0.0f && c.b == 1.0f)
+				{
+					collide.emplace(Coord(x, y));
+				}
+			}
+		}
+		al_unlock_bitmap(a);
+		return collide;
 	}
 
-	// this will need refactoring.
-	MallParser MallParser::parse(std::string pname)
+
+	//TODO Raise exception on failure.
+	std::vector<std::vector<std::string>> MallParser::tokenize(std::string pname)
 	{
 		ifstream in(pname + "mallscript.txt");
 		// Load in the file at std string. throw exception if we could not.
@@ -33,8 +46,21 @@
 			std::istream_iterator<std::string> begin(ss);
 			std::istream_iterator<std::string> end;
 			command_list.push_back(std::vector<std::string>(begin, end));
-			//std::copy(vstrings.begin(), vstrings.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
 		}
+		return command_list;
+	}
+
+	MallParser::MallParser(ALLEGRO_BITMAP* base, ALLEGRO_BITMAP* always, std::unordered_set<Coord> ncollide, std::vector<MallObject> objects)
+	{
+		mallDraw = new MallDraw(base,always);
+		collide = ncollide;
+		mallObjects = objects;
+	}
+
+	MallParser MallParser::parse(std::string pname)
+	{
+		auto command_list = tokenize(pname);
+		//[]() {};
 		std::cout << "total mallscript command count: " << command_list.size() << "\n";
 
 		//Define some variables to collect command information.
@@ -50,132 +76,138 @@
 		{
 			std::vector<ALLEGRO_BITMAP*> draw;
 			std::vector<int> frametimes;
-			ALLEGRO_BITMAP* debug_collide;
 			std::unordered_set<Coord> collide;
 		};
 
-		std::unordered_map<std::string, obj_info> object_template;
+		std::unordered_map<std::string, obj_info> object_template_list;
 
 		std::vector<MallObject> mall_objects;
 
 		for (std::vector<std::vector<std::string>>::iterator it = command_list.begin(); it != command_list.end(); ++it)
 		{
-			//turns out you can't use strings 
-			auto cmd = it[0].at(0);
-			std::cout << "EXECUTING: " << it[0].at(0) << " " << it[0].at(1) << "\n";
-			if (cmd == "a")
+			auto line = it[0];
+
+			// a: always layer
+			if (line.at(0) == "a")
 			{
-				std::string filename = (pname + it[0].at(1));
+				std::string filename = (pname + line.at(1));
 				always = al_load_bitmap(filename.c_str());
 				if (!always)
 				{
-					std::cout << "MallScript error! No file named " << pname + it[0].at(1) << "\n";
+					throw "a (always) command: Error loading " + pname + line.at(1);
 				}
 			}
 
-			if (cmd == "b")
+			// b: base layer
+			if (line.at(0) == "b")
 			{
-				std::string filename = pname + it[0].at(1);
+				std::string filename = (pname + line.at(1));
 				base = al_load_bitmap(filename.c_str());
 				if (!base)
 				{
-					std::cout << "MallScript error! No file named " << pname + it[0].at(1) << "\n";
+					throw "b (base) command: Error loading " + pname + line.at(1);
 				}
 			}
 
-			//collide apporach is kinda naive, but that's ok for now
-			if (cmd == "c")
+			// c: collide layer
+			if (line.at(0) == "c")
 			{
-				std::string filename = pname + it[0].at(1);
+				std::string filename = (pname + line.at(1));
 				collide_bmp = al_load_bitmap(filename.c_str());
 				if (!collide_bmp)
 				{
-					std::cout << "MallScript error! No file named " << pname + it[0].at(1) << "\n"; \
-						continue;
+					throw "c (collide) command: Error loading " + pname + line.at(1);
 				}
-
-				//ok. Iterate through the map, and find the collission. This is gonna be slow, for now.
-				std::cout << "Finding colissions...";
 				collide = generateCollideMap(collide_bmp);
-				std::cout << "  found " << collide.size() << "\n";
 			}
 
-			//do vending_west obj/vending_west.bmp obj/vending_west_c.bmp
-			if (cmd == "do")
+			// do: declare object non-animated
+			// TODO this copies a lot of code from dao.
+			if (line.at(0) == "do")
 			{
-				//Load in the bmp and collide. Also, make a struct that returns these two bitmaps.
-				std::string objname = it[0].at(1);
+				// Load in the bmp and collide. Also, make a struct that returns these two bitmaps.
+				std::string objname = line.at(1);
+
 				obj_info o;
-				o.draw.push_back(al_load_bitmap((pname + it[0].at(2)).c_str()));
-				o.debug_collide = al_load_bitmap((pname + it[0].at(3)).c_str());
+				// push back the single animation
+				o.draw.push_back(al_load_bitmap((pname + line.at(2)).c_str()));
+				// push back the collide bitmap
+				ALLEGRO_BITMAP* collide = al_load_bitmap((pname + line.at(3)).c_str());
+
+				// If they could not be loaded, throw an error.
 				if (!o.draw.at(0))
 				{
-					std::cout << "MallScript error! Can't find " << pname + it[0].at(2) << "\n";
+					throw "do (declare-object) command: Error loading " + pname + line.at(2);
 				}
-				if ( !o.debug_collide)
+				if (!collide)
 				{
-					std::cout << "MallScript error! Can't find " << pname + it[0].at(3) << "\n";
+					throw "do (declare-object) command: Error loading " + pname + line.at(3);
 				}
 
-				o.collide = generateCollideMap(o.debug_collide);
-				o.frametimes.emplace_back(0);
-				object_template.emplace(objname, o);
+				//Good! now generate the collide map, and emplace a frametime of 1, and add the object name to the template list
+				o.collide = generateCollideMap(collide);
+				delete(collide);
+				o.frametimes.emplace_back(1);
+				object_template_list.emplace(objname, o);
 			}
 
-			//dao fountain obj/fountain.bmp obj/f1.bmp 1 obj/f2.bmp 3
-			if (cmd == "dao")
+			// dao: declare object animated
+			// example: dao fountain obj/fountain.bmp obj/f1.bmp 1 obj/f2.bmp 3
+			if (line.at(0) == "dao")
 			{
 				//Load in the bmp and collide. Also, make a struct that returns these two bitmaps.
-				std::string objname = it[0].at(1);
+				std::string objname = line.at(1);
 				obj_info o;
-				o.debug_collide = al_load_bitmap((pname + it[0].at(2)).c_str());
-				o.collide = generateCollideMap(o.debug_collide);
-				//iterate over last parts of vector. TODO: Check for proper arg count.
-				for (int i = 3; i < it[0].size(); i += 2)
+				ALLEGRO_BITMAP* collide = al_load_bitmap((pname + line.at(2)).c_str());
+
+				if (!collide)
 				{
-					ALLEGRO_BITMAP* a = al_load_bitmap((pname + it[0].at(i)).c_str());
-					int ftime = std::stoi(it[0].at(i + 1));
-					if (!a || !o.debug_collide)
+					throw "dao (declare-animated-object) command: Error loading " + pname + line.at(3);
+				}
+
+				o.collide = generateCollideMap(collide);
+				delete(collide);
+
+				//iterate over last parts of vector. TODO: Check for proper arg count.
+				for (int i = 3; i <  line.size(); i += 2)
+				{
+					ALLEGRO_BITMAP* a = al_load_bitmap((pname + line.at(i)).c_str());
+					int ftime = std::stoi(line.at(i + 1));
+					if (!a)
 					{
-						std::cout << "MallScript error! No file named " << pname + it[0].at(1) << "\n";
+						throw "dao (declare-animated-object) command: Error loading " + pname + line.at(i);
 					}
+					// Insert the frame and the time into the structures.
 					o.draw.insert(o.draw.begin(),a);
 					o.frametimes.insert(o.frametimes.begin(), ftime);
 				}
-				object_template.emplace(objname, o);
+				//done! add it to the list.
+				object_template_list.emplace(objname, o);
 			}
 
-			if (cmd == "p")
+			// p: place
+			// example: fountain 233 2345
+			if (line.at(0) == "p")
 			{
-				
-				//Finally, you place objects like this, using p (put)
-				//For now, objects are static, so we just place the coords on the mall base layer.
-				//Throw error if obj cannot be found!
-				auto obj_temp_itr = object_template.find(it[0].at(1));
-				if (obj_temp_itr == object_template.end())
+
+				auto obj_temp_itr = object_template_list.find(it[0].at(1));
+				if (obj_temp_itr == object_template_list.end())
 				{
-					std::cout << "MallScript error! No object declared named " << it[0].at(1) << "\n";
+					throw "p (place) command: No object previously declared named " + line.at(1);
 				}
+				// Now we have the obj_info struct with the draw and body.
 				auto obj = obj_temp_itr->second;
+
 				Coord c = Coord(std::stoi(it[0].at(2)), std::stoi(it[0].at(3)));
-				int w = al_get_bitmap_width(obj.draw.at(0));
 				int h = al_get_bitmap_height(obj.draw.at(0));
-				std::cout << "finishing\n";
-				auto mall_object = MallObject(obj.draw, obj.frametimes, obj.debug_collide, c, w, h);
-				//add mall object to list, add coords into the collide set (FOR NOW).
-				std::cout << "Placing! \n";
-				for (const auto& elem : obj.collide) 
-				{
-					auto collide_coord = Coord(elem.getX() + mall_object.coord.getX(), elem.getY() + mall_object.coord.getY());
-					collide.emplace(collide_coord);
-				}
+
+				auto mall_object = MallObject(obj.draw, obj.frametimes, obj.collide, c, h);
 				mall_objects.emplace_back(mall_object);
 			}
 		}
-		std::cout << "Script Run! \n";
 
 
-			//Done, return a base and always with no objects or collide.
-			return MallParser(base, always, collide_bmp, collide, mall_objects);
+		//Done, return a base and always with no objects or collide.
+		return MallParser(base, always, collide, mall_objects);
 
 }

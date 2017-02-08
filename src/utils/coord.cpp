@@ -1,6 +1,11 @@
 #include "coord.h"
 
-Coord::Coord(int xv, int yv)
+Coord::Coord()
+{
+	x = 0; y = 0;
+}
+
+Coord::Coord(int xv = 0, int yv = 0)
 {
 	x = xv;y = yv;
 }
@@ -28,6 +33,20 @@ bool Coord::operator==(const Coord &other) const
 	return x == other.getX() && y == other.getY();
 }
 
+Coord Coord::operator+(const Coord &other) const
+{
+	int newx = getX() + other.getX();
+	int newy = getY() + other.getY();
+	return Coord(newx, newy);
+}
+
+Coord Coord::operator-(const Coord &other) const
+{
+	return Coord(getX() - other.getX(), getY() - other.getY());
+}
+
+
+
 vector<Coord> Coord::getAdj4()
 {
 	vector<Coord> res;
@@ -54,21 +73,24 @@ ostream &operator<<(ostream &os, Coord c) {
 	return os << c.getX() << "," << c.getY() << "\n";
 }
 
-Coord operator+(Coord &a, Coord &b)
-{
-	int newx = a.getX()+b.getX();
-	int newy = a.getY()+b.getY();
-	return Coord(newx,newy);
-}
 
-Coord operator-(Coord &a, Coord &b)
-{
-	return Coord(a.getX()-b.getX(),a.getY()-b.getY());
-}
 
 double Coord::dist(Coord &a, Coord &b)
 {
 	return sqrt(pow(a.getX()-b.getX(),2)+pow(a.getY()-b.getY(),2));
+}
+
+unordered_set<Coord> Coord::generateRect(int w, int h)
+{
+	unordered_set<Coord> set;
+	for (int i = 0; i != w; i++)
+	{
+		for (int j = 0; j != h; j++)
+		{
+			set.emplace(Coord(i, j));
+		}
+	}
+	return set;
 }
 
 

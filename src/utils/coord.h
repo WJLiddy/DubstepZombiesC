@@ -9,6 +9,7 @@ class Coord
 {
         int x,y;
 public:
+		Coord();
         Coord(int,int);
         int setX(int);int setY(int);
         bool setCoord(int,int);
@@ -17,10 +18,14 @@ public:
         int getY() const{return y;}
 
         bool operator==(const Coord&) const;
+		Coord operator+(const Coord&) const;
+		Coord operator-(const Coord&) const;
+
         vector<Coord> getAdj4();
         vector<Coord> getAdj8();
 
         static double dist(Coord&, Coord&);
+		static unordered_set<Coord> generateRect(int w, int h);
 };
 
 namespace std
@@ -34,5 +39,5 @@ namespace std
 		}
 	};
 }
-		
+	
 #endif

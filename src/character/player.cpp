@@ -4,101 +4,178 @@
 #include <allegro5/allegro.h>
 #include "../input/controller.h"
 
-	Player::Player() : GameObject(Coord(50,50),20,20)
+int Player::player_size = 10;
+double  Player::SPEED_PER_FRAME = 0.7;
+int  Player::draw_offset_x = -5;
+int  Player::draw_offset_y = -10;
+
+	//Player hardcoded to be 10 by 10 for now.
+	Player::Player() : RenderObject(Coord(50,50),"PLAYER",Coord::generateRect(player_size, player_size))
 	{
 		walk_ = al_load_bitmap("res/sprites/jacket/walk.png");
 	}
 
-	void Player::setDirection(int dx, int dy)
+	bool move_intended(Controller& c)
 	{
-		switch (dx)
+		auto move_btns = { Controller::UP, Controller::DOWN, Controller::LEFT, Controller::RIGHT };
+		for (auto control : move_btns)
 		{
-		case -1:
-			switch (dy)
-			{
-			case -1:dir = NW; break;
-			case 0:dir = W; break;
-			case 1:dir = SW; break;
-			}
-			break;
-		case 0:
-			switch (dy)
-			{
-			case -1:dir = N; break;
-			//This is an ungly shotcut, but, it will work for now.
-			case 0:frame = 0; frame_time_left_ = 1; potential_ = 0; break;
-			case 1:dir = S; break;
-			}
-			break;
-		case 1:
-			switch (dy)
-			{
-			case -1:dir = NE;break;
-			case 0:dir = E; break;
-			case 1:dir = SE; break;
-			}
+			if (c.pressed(control))
+				return true;
 		}
+		return false;
 	}
-	//temp temp temp
-	void Player::update(Controller& i, unordered_set<Coord>& collide)
+
+	Coord Player::validate_move(Coord delta, GameMap map)
 	{
-
-		int dx = 0;
-		int dy = 0;
-		//Do you like hardcoding?
-		if (i.pressed(Controller::UP))
-			dy = -1;
-		else if (i.pressed(Controller::DOWN))
-			dy = 1;
-		if (i.pressed(Controller::LEFT))
-			dx = -1;
-		else if (i.pressed(Controller::RIGHT))
-			dx = 1;
-		
-		//dirty hardcoding
-		potential_ += 0.7;
-		if (potential_ >= 1)
+		//Iterate along left side and look for collision. Will not work if player move speed is greater than 1. 
+		if (delta.getX() == 1)
 		{
-			potential_ -= 1;
-			//Crappy naieve approach, deal for now until ted makes map class
-			coord = Coord(coord.getX() + dx, coord.getY() + dy);
-
-			bool breakflag = false;
-			//10 by 10 at 5 10
-			for (int x = coord.getX() + 5; !breakflag && x != coord.getX() + 15 ; x++)
+			for (int dy = 0; dy != player_size; dy++)
 			{
-				for (int y = coord.getY() + 10; !breakflag && y != coord.getY() + 20; y++)
+				if (map.get(getCoord() + Coord(player_size, dy)).size() > 0)
 				{
-					//if collide, undo move, and 
-					if (collide.find(Coord(x,y)) != collide.end())
-					{
-						breakflag = true;
-						//unmove
-						coord = Coord(coord.getX() - dx, coord.getY() - dy);
-					}
+					//cancel move and break
+					delta.setX(0);
+					break;
 				}
 			}
-
-			
 		}
 
-		frame_time_left_--;
-		if (frame_time_left_ <= 0)
+		//Iterate along right side and look
+		if (delta.getX() == -1)
 		{
-			frame_time_left_ = 15;
-			frame = ((frame + 1) % 4);
+			for (int dy = 0; dy != player_size; dy++)
+			{
+				if (map.get(getCoord() + Coord(-1, dy)).size() > 0)
+				{
+					//cancel move and break
+					delta.setX(0);
+					break;
+				}
+			}
 		}
 
-		setDirection(dx, dy);
+		//Iterate along top side and look for collision. Will not work if player move speed is greater than 1. 
+		if (delta.getY() == -1)
+		{
+			for (int dx = 0; dx != player_size; dx++)
+			{
+				if (map.get(getCoord() + Coord(dx, -1)).size() > 0)
+				{
+					//cancel move and break
+					delta.setY(0);
+					break;
+				}
+			}
+		}
 
+		//Iterate along bottom and look
+		if (delta.getY() == 1)
+		{
+			for (int dx = 0; dx != player_size; dx++)
+			{
+				if (map.get(getCoord() + Coord(dx, player_size)).size() > 0)
+				{
+					//cancel move and break
+					delta.setY(0);
+					break;
+				}
+			}
+		}
+
+		return delta;
+	}
+
+	Player::Direction getInputtedDirection(Controller& c)
+	{
+
+		if (c.pressed(Controller::UP) && c.pressed(Controller::RIGHT))
+			return Player::NE;
+		if (c.pressed(Controller::UP) && c.pressed(Controller::LEFT))
+			return Player::NW;
+		if (c.pressed(Controller::DOWN) && c.pressed(Controller::RIGHT))
+			return Player::SE;
+		if (c.pressed(Controller::DOWN) && c.pressed(Controller::LEFT))
+			return Player::SW;
+
+		if (c.pressed(Controller::UP))
+			return Player::N;
+		if (c.pressed(Controller::LEFT))
+			return Player::W;
+		if (c.pressed(Controller::RIGHT))
+			return Player::E;
+		if (c.pressed(Controller::DOWN))
+			return Player::S;
+	}
+
+	void Player::update(Controller& i, GameMap& map)
+	{
+		if(!move_intended(i))
+		{ 
+			//Set player frame to 0, cancel any move delta, do not move animation
+			frame = 0;
+			frame_time_left_ = 1;
+			delta_move_ = 0;
+		}
+		else
+		{
+			//See if player can even move. If they can't, return.
+			auto moveDir = getInputtedDirection(i);
+			Coord delta = toDeltaCoord(moveDir);
+			auto valid_delta = validate_move(delta, map);
+			if (valid_delta == Coord(0, 0))
+			{
+				//you can't move here!
+				return;
+			}
+			
+			// Otherwise, we can move here, at least in one of the directions.
+			// let animation run.
+
+			frame_time_left_--;
+			if (frame_time_left_ <= 0)
+			{
+				frame_time_left_ = 15;
+				frame = ((frame + 1) % 4);
+			}
+			
+			// Add move to our delta timer.
+			delta_move_ += SPEED_PER_FRAME;
+
+			// See if our delta timer triggers an update.
+			bool move_flag = false;
+			if (delta_move_ >= 1 && cardinal(moveDir))
+			{
+				move_flag = true;
+				delta_move_ -= 1;
+			}
+
+			//radical 2
+			if (delta_move_ >= 1.4 && !cardinal(moveDir))
+			{
+				move_flag = true;
+				delta_move_ -= 1.4;
+			}
+
+			//It Did! go ahead and move by delta.
+			if (move_flag)
+			{
+				map.move(*this, getCoord() + delta);				
+			}
+		}
 		return;
 	}
 	void Player::draw(Coord& camera)
 	{
 		
 		int dir_offset = static_cast<int>(dir);
-		al_draw_bitmap_region(walk_, frame*w, dir_offset*h, w, h, coord.getX() - camera.getX(), coord.getY() - camera.getY(), 0);
+		al_draw_bitmap_region(walk_, frame*spritesheet_size, dir_offset*spritesheet_size, spritesheet_size, spritesheet_size, (getCoord().getX() + draw_offset_x) - camera.getX(), (getCoord().getY() + draw_offset_y) - camera.getY(), 0);
 
 		//al_draw_bitmap_region(walk_,w*frame, h*dir_offset, w, h, coord.getX() - camera.getX(), coord.getY() - camera.getY(), 0);
 	}
 
+	int Player::getBottom()
+	{
+		return getCoord().getY() + player_size;
+	}

@@ -1,14 +1,18 @@
+#ifndef UUIDZ_H
+#define UUIDZ_H
+
 #include "common.h"
 using namespace std;
 
-class UUID
+class UUIDZ
 {
         private:
         mt19937 rd_;
 
         public:
-        UUID(string seed);
+        UUIDZ();
         string getUUID();
-	long long gettime();
+		long long gettime();
 };
+#endif
 
