@@ -26,7 +26,7 @@ int  Player::draw_offset_y = -10;
 		return false;
 	}
 
-	Coord Player::validate_move(Coord delta, GameMap map)
+	Coord Player::validate_move(Coord delta, GameMap& map)
 	{
 		//Iterate along left side and look for collision. Will not work if player move speed is greater than 1. 
 		if (delta.getX() == 1)
@@ -124,9 +124,14 @@ int  Player::draw_offset_y = -10;
 			auto moveDir = getInputtedDirection(i);
 			Coord delta = toDeltaCoord(moveDir);
 			auto valid_delta = validate_move(delta, map);
+			dir = moveDir;
 			if (valid_delta == Coord(0, 0))
 			{
 				//you can't move here!
+				//Set player frame to 0, cancel any move delta, do not move animation
+				frame = 0;
+				frame_time_left_ = 1;
+				delta_move_ = 0;
 				return;
 			}
 			
@@ -136,6 +141,7 @@ int  Player::draw_offset_y = -10;
 			frame_time_left_--;
 			if (frame_time_left_ <= 0)
 			{
+				// h a r d c o d e d
 				frame_time_left_ = 15;
 				frame = ((frame + 1) % 4);
 			}
@@ -158,7 +164,6 @@ int  Player::draw_offset_y = -10;
 				delta_move_ -= 1.4;
 			}
 
-			//It Did! go ahead and move by delta.
 			if (move_flag)
 			{
 				map.move(*this, getCoord() + delta);				

@@ -23,15 +23,15 @@ class GameMap
 
 	//puts the *entire* GO onto the map i.e. the rectangle, 
 	//and the anchor coord i.e. the top-left into the layer
-	void put(GameObject);
-	void operator+=(GameObject);
+	void put(GameObject&);
+	void operator+=(GameObject&);
 	
 	//inverse of put
-	void remove(GameObject);
-	void operator-=(GameObject);
+	void remove(GameObject&);
+	void operator-=(GameObject&);
 
 	//remove->put
-	void move(GameObject, Coord);
+	void move(GameObject&, Coord);
 	
 	//get what is on the coord
 	vector<GameObject> get(int,int);
@@ -39,14 +39,13 @@ class GameMap
 	
 	//get where all the GOs of the parameter GO's type are placed
 	//i.e. the top-left anchor
-	vector<GameObject> collect(GameObject);
+	vector<GameObject> collect(GameObject&);
 	
 	vector<GameObject> operator[](Coord co);
-	vector<GameObject> operator[](GameObject go);
+	vector<GameObject> operator[](GameObject& go);
 
 	//does Coord have GameObject?
-	bool has(GameObject, int, int);
-	bool has(GameObject, Coord);
+	bool has(GameObject&, Coord);
 };
 
 #endif

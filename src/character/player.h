@@ -24,7 +24,7 @@ private:
 
 	static const int spritesheet_size = 20;
 
-	Coord validate_move(Coord delta, GameMap map);
+	Coord validate_move(Coord delta, GameMap& map);
 public:
 	//This'll be moved to a different class soon
 	enum Direction {N = 0, NW = 1, W = 2, SW = 3, S = 4, SE = 5, E = 6, NE = 7};

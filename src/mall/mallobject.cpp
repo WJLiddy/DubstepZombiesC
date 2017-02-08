@@ -26,10 +26,6 @@
 	void MallObject::draw(Coord& camera)
 	{
 
-
-		std::cout << frames_.size() << "frames\n";
-		std::cout << frame_times_.size() << "frames\n";
-		std::cout << frame_ptr_ << "frame\n";
 		al_draw_bitmap(frames_.at(frame_ptr_), getCoord().getX() - camera.getX(), getCoord().getY() - camera.getY(), 0);
 	}
 

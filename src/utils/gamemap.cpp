@@ -32,7 +32,7 @@ GameMap::GameMap(vector<Coord> collisions, GameObject colObj)
 	}
 }
 
-void GameMap::put(GameObject go)
+void GameMap::put(GameObject& go)
 {
 	for (Coord c : go.getBody())
 	{
@@ -41,12 +41,12 @@ void GameMap::put(GameObject go)
 	checkinsert(layer_,go.getType(),go);
 }
 
-void GameMap::operator+=(GameObject go)
+void GameMap::operator+=(GameObject& go)
 {
 	GameMap::put(go);
 }
 
-void GameMap::remove(GameObject go)
+void GameMap::remove(GameObject& go)
 {
 	try
 	{
@@ -62,12 +62,12 @@ void GameMap::remove(GameObject go)
 	}
 }
 
-void GameMap::operator-=(GameObject go)
+void GameMap::operator-=(GameObject& go)
 {
 	GameMap::remove(go);
 }
 
-void GameMap::move(GameObject go, Coord co)
+void GameMap::move(GameObject& go, Coord co)
 {
 	GameMap::remove(go);
 	go.setCoord(co);
@@ -92,7 +92,7 @@ vector<GameObject> GameMap::operator[](Coord co)
 	return GameMap::get(co);
 }
 
-vector<GameObject> GameMap::collect(GameObject go)
+vector<GameObject> GameMap::collect(GameObject& go)
 {
 	if (!layer_.count(go.getType()))
 		return vector<GameObject>();
@@ -100,17 +100,12 @@ vector<GameObject> GameMap::collect(GameObject go)
 	return vector<GameObject>(res.begin(),res.end());
 }
 
-vector<GameObject> GameMap::operator[](GameObject go)
+vector<GameObject> GameMap::operator[](GameObject& go)
 {
 	return GameMap::collect(go);
 }
 
-bool GameMap::has(GameObject go, int x, int y)
-{
-	return GameMap::has(go,Coord(x,y));
-}
-
-bool GameMap::has(GameObject go, Coord co)
+bool GameMap::has(GameObject& go, Coord co)
 {
 	if (!gm_.count(co))
 		return false;
