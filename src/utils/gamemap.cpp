@@ -120,6 +120,7 @@ bool GameMap::has(GameObject go, Coord co)
 
 
 //see the showcase section of usages of this class
+/**
 int main(int argc, char **argv) 
 {
 	//making test objects
@@ -147,4 +148,5 @@ int main(int argc, char **argv)
 	cout << gm.has(test1,1,1) << endl;
 	return 0;
 }
+*/
 

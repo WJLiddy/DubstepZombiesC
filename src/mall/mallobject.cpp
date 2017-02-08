@@ -4,6 +4,7 @@
 
 	MallObject::MallObject(std::vector<ALLEGRO_BITMAP*> frames, std::vector<int> frame_times, unordered_set<Coord> body, Coord position, int h) : RenderObject(position, "MALL_STATIC_OBJECT", body)
 	{
+
 		frames_ = frames;
 		frame_times_ = frame_times;
 		frame_ptr_ = 0;
@@ -24,6 +25,11 @@
 
 	void MallObject::draw(Coord& camera)
 	{
+
+
+		std::cout << frames_.size() << "frames\n";
+		std::cout << frame_times_.size() << "frames\n";
+		std::cout << frame_ptr_ << "frame\n";
 		al_draw_bitmap(frames_.at(frame_ptr_), getCoord().getX() - camera.getX(), getCoord().getY() - camera.getY(), 0);
 	}
 

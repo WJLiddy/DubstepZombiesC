@@ -19,7 +19,7 @@
 				ALLEGRO_COLOR c = al_get_pixel(a, x, y);
 				if (c.r == 1.0f && c.g == 0.0f && c.b == 1.0f)
 				{
-					collide.emplace(Coord(x, y));
+					collide.emplace(x, y);
 				}
 			}
 		}
@@ -147,8 +147,8 @@
 				//Good! now generate the collide map, and emplace a frametime of 1, and add the object name to the template list
 				o.collide = generateCollideMap(collide);
 				delete(collide);
-				o.frametimes.emplace_back(1);
-				object_template_list.emplace(objname, o);
+				o.frametimes.push_back(1);
+				object_template_list[objname]  =o;
 			}
 
 			// dao: declare object animated
@@ -182,7 +182,7 @@
 					o.frametimes.insert(o.frametimes.begin(), ftime);
 				}
 				//done! add it to the list.
-				object_template_list.emplace(objname, o);
+				object_template_list[objname] = o;
 			}
 
 			// p: place
@@ -200,9 +200,8 @@
 
 				Coord c = Coord(std::stoi(it[0].at(2)), std::stoi(it[0].at(3)));
 				int h = al_get_bitmap_height(obj.draw.at(0));
-
 				auto mall_object = MallObject(obj.draw, obj.frametimes, obj.collide, c, h);
-				mall_objects.emplace_back(mall_object);
+				mall_objects.push_back(mall_object);
 			}
 		}
 

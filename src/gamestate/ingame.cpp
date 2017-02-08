@@ -14,7 +14,7 @@
 		mall_objects_ = mp.mallObjects;
 		GameMap m_;
 		GameObject gm(Coord(0,0), "MALL_STATIC_BASE_COLLIDE", mp.collide);
-		m_.put(gm);
+		//m_.put(gm);
 	}
 
     GameState* InGame::update_state()   
@@ -42,7 +42,8 @@
 
 		std::vector<RenderObject*> to_render;
 
-		for (auto value : mall_objects_)
+
+		for (auto & value : mall_objects_)
 		{
 			to_render.push_back(&value);
 		}
@@ -52,7 +53,7 @@
 		std::sort(std::begin(to_render), std::end(to_render), RenderObject::lower);
 
 
-		for (auto value : to_render)
+		for (auto &value : to_render)
 		{
 			value->draw(camera_);
 			//draw colission info (TODO)
