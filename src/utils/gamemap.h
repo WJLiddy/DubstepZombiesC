@@ -14,8 +14,8 @@ class GameMap
 	unordered_map<Coord,unordered_set<string> > gm_;
 	unordered_map<string,unordered_set<string> > layer_;
 
-	void checkinsert(unordered_map<Coord,unordered_set<string> > &,Coord,GameObject);
-	void checkinsert(unordered_map<string,unordered_set<string> > &,string,GameObject);
+	void checkinsert(unordered_map<Coord,unordered_set<string> > &,Coord,GameObject&);
+	void checkinsert(unordered_map<string,unordered_set<string> > &,string,GameObject&);
 	
 	unordered_map<string,shared_ptr<GameObject> >ref_;
 	vector<shared_ptr<GameObject> > getref(unordered_set<string>);

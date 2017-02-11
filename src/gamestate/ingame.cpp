@@ -12,10 +12,11 @@
         MallParser mp = MallParser::parse("res/maps/test/");
         md_ = mp.mallDraw;
 		mall_objects_ = mp.mallObjects;
+
 		GameObject gm(Coord(0,0), "MALL_STATIC_BASE_COLLIDE", mp.collide);
 		std::cout << mp.collide.size() << "objects\n";
 		m_.put(gm);
-		std::cout << mp.collide.size() << "donezo\n";
+		std::cout <<  "donezo\n";
 		m_.put(p_);
 	}
 

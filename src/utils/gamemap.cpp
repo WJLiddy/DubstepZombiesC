@@ -1,7 +1,7 @@
 #include "gamemap.h"
 #include "coord.h"
 
-void GameMap::checkinsert(unordered_map<Coord,unordered_set<string> > &tar, Coord co, GameObject go)
+void GameMap::checkinsert(unordered_map<Coord,unordered_set<string> > &tar, Coord co, GameObject& go)
 {
 	if (!ref_.count(go.uuid()))
 		ref_[go.uuid()]=make_shared<GameObject>(go);
@@ -10,7 +10,7 @@ void GameMap::checkinsert(unordered_map<Coord,unordered_set<string> > &tar, Coor
 	tar[co].insert(go.uuid());
 }
 
-void GameMap::checkinsert(unordered_map<string,unordered_set<string> > &tar, string type, GameObject go)
+void GameMap::checkinsert(unordered_map<string,unordered_set<string> > &tar, string type, GameObject& go)
 {
 	if (!ref_.count(go.uuid()))
 		ref_[go.uuid()]=make_shared<GameObject>(go);
@@ -138,6 +138,7 @@ bool GameMap::has(GameObject go, int x, int y)
 	return GameMap::has(go,Coord(x,y));
 }
 
+/*
 //see the showcase section of usages of this class
 int main(int argc, char **argv) 
 {
@@ -167,3 +168,4 @@ int main(int argc, char **argv)
 	return 0;
 }
 
+*/
