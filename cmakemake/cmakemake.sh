@@ -42,9 +42,9 @@ done | #Now we need to open every even file and find the #includes
 while read word;
    do echo $word;
    read word;
-   grep -rnw ../$word -e '#include "' | cut -d':' -f 2;
+   grep -rn ../$word -e '#include "' | cut -d':' -f 2;
    read word;
-   grep -rnw ../$word -e '#include "' | cut -d':' -f 2;
+   grep -rn ../$word -e '#include "' | cut -d':' -f 2;
 done |
 ./target_link_libraries >> ../CMakeLists.txt
 
@@ -55,4 +55,7 @@ grep ../CMakeLists.txt -e 'add_library(' |
 cut -d'(' -f 2 |
 cut -d' ' -f 1 |
 xargs -I% printf 'target_link_libraries(../bin/DZ %)\n' >> ../CMakeLists.txt
+
+#Allegro linked libraries:
+printf "allegro\nallegro_font\nallegro_ttf\nallegro_image\n" | xargs -I% printf "target_link_libraries(../bin/DZ %)\n" >> ../CMakeLists.txt
  
