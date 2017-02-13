@@ -9,6 +9,7 @@
 		frame_times_ = frame_times;
 		frame_ptr_ = 0;
 		frame_time_left_ = frame_times_.at(0);
+		h_ = h;
 	}
 
 	void MallObject::tick()

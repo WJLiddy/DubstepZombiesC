@@ -166,7 +166,7 @@ int  Player::draw_offset_y = -10;
 
 			if (move_flag)
 			{
-				map.move(*this, getCoord() + delta);				
+				map.move(*this, getCoord() + valid_delta);				
 			}
 		}
 		return;

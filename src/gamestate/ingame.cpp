@@ -45,14 +45,13 @@
 		camera_.setY(p_.getCoord().getY() - DrawUtils::GAME_H / 2 + (p_.player_size / 2));
         return NULL;
     }
-
     
     void InGame::draw_state(DrawUtils& drawUtils)  
     {
 		md_->draw_base(camera_);
 
-		std::vector<RenderObject*> to_render;
 
+		std::vector<RenderObject*> to_render;
 
 		for (auto & value : mall_objects_)
 		{
@@ -63,17 +62,17 @@
 		
 		std::sort(std::begin(to_render), std::end(to_render), RenderObject::lower);
 
-
 		for (auto &value : to_render)
 		{
 			value->draw(camera_);
 			//draw colission info (TODO)
 			//if (debug_)
-				//value.drawDebug(camera_);
+			//	value.drawDebug(camera_);
 		}
         md_->draw_always(camera_);
 		//draw colission info (TODO)
 		//if (debug_)
-			//md_->draw_debug_collide(camera_);
+		//	md_->draw_debug_collide(camera_);
+
     }
 
