@@ -4,20 +4,28 @@
 #include "../mall/mallparser.h"
 #include "../mall/malldraw.h"
 #include "../utils/gamemap.h"
+#include <stdlib.h> 
 
 	// Set up our camera, load in bitmap, etc.
 	InGame::InGame(Inputs* inputs) : GameState(inputs) 
 	{
         // Parse the mall map, collect the MapObjects, MapDraw, and set of collide coords (to be forward to ted's map class.) 
-        MallParser mp = MallParser::parse("res/maps/test/");
-        md_ = mp.mallDraw;
-		mall_objects_ = mp.mallObjects;
+        try {
+            MallParser mp = MallParser::parse("res/maps/test/");
+            md_ = mp.mallDraw;
+		    mall_objects_ = mp.mallObjects;
 
-		GameObject gm(Coord(0,0), "MALL_STATIC_BASE_COLLIDE", mp.collide);
-		std::cout << mp.collide.size() << "objects\n";
-		m_.put(gm);
-		std::cout <<  "donezo\n";
-		m_.put(p_);
+		    GameObject gm(Coord(0,0), "MALL_STATIC_BASE_COLLIDE", mp.collide);
+		    std::cout << mp.collide.size() << "objects\n";
+		    m_.put(gm);
+		    std::cout <<  "donezo\n";
+		    m_.put(p_);
+        } catch (string& s) 
+        {
+            std::cout << "FATAL ERROR PARSING MAP: \"" << s << "\"" << endl;
+            exit (EXIT_FAILURE);
+        }
+
 	}
 
     GameState* InGame::update_state()   
