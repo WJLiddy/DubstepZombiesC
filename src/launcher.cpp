@@ -48,7 +48,7 @@ int main(int argc, char **argv){
    al_register_event_source(event_queue, al_get_display_event_source(drawUtils.display_));
    al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-   UUID uuid();
+  
 
    while(1)
    {

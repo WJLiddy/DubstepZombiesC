@@ -1,6 +1,7 @@
 #include "gamestate.h"
 #include "titlescreen.h"
 #include "ingame.h"
+#include "../input/inputs.h"
 
     GameState* TitleScreen::update_state()
     {
