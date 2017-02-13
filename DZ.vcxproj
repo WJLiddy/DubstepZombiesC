@@ -100,6 +100,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\character\player.cpp" />
     <ClCompile Include="src\drawutils\drawutils.cpp" />
     <ClCompile Include="src\gamestate\gamestate.cpp" />

@@ -1,11 +1,14 @@
+#define NOMINMAX
+
+
 #include "player.h"
 #include "../utils/coord.h"
 #include "../utils/gameobject.h"
 #include <allegro5/allegro.h>
 #include "../input/controller.h"
+#include "../utils/common.h"
 
 int Player::player_size = 10;
-double  Player::SPEED_PER_FRAME = 0.7;
 int  Player::draw_offset_x = -5;
 int  Player::draw_offset_y = -10;
 
@@ -111,6 +114,12 @@ int  Player::draw_offset_y = -10;
 
 	void Player::update(Controller& i, GameMap& map)
 	{
+		// no regen and running
+		if (!i.pressed(Controller::A))
+		{
+			stamina_ = std::min(getMaxStamina(), stamina_ + getEnergyCount() * STAMINA_REGEN_PER_ENERGY);
+		}
+
 		if(!move_intended(i))
 		{ 
 			//Set player frame to 0, cancel any move delta, do not move animation
@@ -146,8 +155,21 @@ int  Player::draw_offset_y = -10;
 				frame = ((frame + 1) % 4);
 			}
 			
+
+
+
+
+			//Speed calc
+			double speed = BASE_SPEED + (getEnergyCount()*SPEED_PER_ENERGY);
+
+			if (i.pressed(Controller::A) && stamina_ > STAMINA_RUN_COST_PER_FRAME)
+			{
+				stamina_ -= STAMINA_RUN_COST_PER_FRAME;
+				speed = speed * RUN_MULT;
+			}
+
 			// Add move to our delta timer.
-			delta_move_ += SPEED_PER_FRAME;
+			delta_move_ += speed;
 
 			// See if our delta timer triggers an update.
 			bool move_flag = false;
@@ -183,4 +205,35 @@ int  Player::draw_offset_y = -10;
 	int Player::getBottom()
 	{
 		return getCoord().getY() + player_size;
+	}
+
+	// I love Java!
+	int Player::getEnergyMissingDueToInfection()
+	{
+		return infection_;
+	}
+
+	int Player::getEnergyMissingDueToThirst()
+	{
+		return std::max(0, (thirst_ / THIRST_MACH) - 1);
+	}
+
+	int Player::getEnergyMissingDueToHunger()
+	{
+		return std::max(0, (hunger_ / HUNGER_MACH) - 1);
+	}
+	int Player::getEnergyCount()
+	{
+		return std::max(0,BASE_ENERGY + -(getEnergyMissingDueToHunger() + getEnergyMissingDueToInfection() + getEnergyMissingDueToThirst()));
+	}
+
+	//some constant times energy level
+	int Player::getMaxStamina()
+	{
+		return getEnergyCount() * STAMINA_PER_ENERGY;
+	}
+
+	int Player::getStaminaLevel()
+	{
+		return stamina_;
 	}
