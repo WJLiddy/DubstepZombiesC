@@ -13,13 +13,13 @@ c collide.bmp
 # The syntax is:
 # name          image                 collide
 
-do vend_south obj/vendsouth.png obj/vend_c.png
+do vend_south mapobj/vendsouth.png mapobj/vend_c.png
 
 # Then you have animated objects. Use "dao" (define animated object)
 # The syntax is:
 #   name     collide          animation + frame count (for as many frames as you like)
 
-dao kiosk obj/kiosk_c.png obj/kiosk_1.png 15 obj/kiosk_2.png 45
+dao kiosk mapobj/kiosk_c.png mapobj/kiosk_1.png 15 mapobj/kiosk_2.png 45
 
 # Finally, you place objects like this, using p (put)
 
