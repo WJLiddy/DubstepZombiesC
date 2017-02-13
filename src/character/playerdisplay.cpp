@@ -33,41 +33,51 @@
 
 	void PlayerDisplay::draw_energy_bar(int index, int x, int y)
 	{
+		double alpha_mod = 1;
+		if (energy_frame_ > 30)
+		{
+			alpha_mod = 1.0 - (((double)energy_frame_ - 30.0) / 30.0);
+		}
 		//firstly, see if we are in the "stamina bar" segment
 		if (index < p_->getEnergyCount())
 		{
-			if ((index+1) * p_->STAMINA_PER_ENERGY < p_->getStaminaLevel())
+			if ((index+1) * p_->STAMINA_PER_ENERGY <= p_->getStaminaLevel())
 			{
 				//Full bar!
-				al_draw_bitmap(fill_, x, y, 0);
+				al_draw_tinted_bitmap(fill_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod), x, y, 0);
+
 			}
 
-			if ((index * p_->STAMINA_PER_ENERGY) < p_->getStaminaLevel() && ((index + 1) * p_->STAMINA_PER_ENERGY) >= p_->getStaminaLevel())
+			if ((index * p_->STAMINA_PER_ENERGY) < p_->getStaminaLevel() && ((index + 1) * p_->STAMINA_PER_ENERGY) > p_->getStaminaLevel())
 			{
 				double alpha = ((double)(p_->getStaminaLevel() % p_->STAMINA_PER_ENERGY)) / (double)p_->STAMINA_PER_ENERGY;
-				std::cout << alpha << endl;
-				std::cout << p_->getStaminaLevel() << endl;
-				al_draw_tinted_bitmap(fill_, al_map_rgba_f(alpha, alpha, alpha, alpha), x, y, 0);
+				al_draw_tinted_bitmap(fill_, al_map_rgba_f(alpha_mod*alpha, alpha_mod*alpha, alpha_mod*alpha, alpha_mod*alpha), x, y, 0);
 			}
+			al_draw_tinted_bitmap(segment_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod), x, y, 0);
 
 		}
 		else if (index <  p_->getEnergyCount() + p_->getEnergyMissingDueToThirst())
 		{
-			al_draw_tinted_bitmap(fill_, al_map_rgba_f(0, 0, 0, 0.5), x, y, 0);
-			al_draw_bitmap(thirsty_, x, y, 0);
+
+
+		//	al_draw_tinted_bitmap(fill_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod), x, y, 0);
+			al_draw_tinted_bitmap(segment_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod),x, y, 0);
+			al_draw_tinted_bitmap(thirsty_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod), x, y, 0);
 		}
 		else if (index <  p_->getEnergyCount() + p_->getEnergyMissingDueToThirst() + p_->getEnergyMissingDueToHunger())
 		{
-			al_draw_tinted_bitmap(fill_, al_map_rgba_f(0, 0, 0, 0.5), x, y, 0);
-			al_draw_bitmap(hungry_, x, y, 0);
+			//al_draw_tinted_bitmap(fill_, al_map_rgba_f(255, 0, 0, 1), x, y, 0);
+			al_draw_tinted_bitmap(segment_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod), x, y, 0);
+			al_draw_tinted_bitmap(hungry_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod), x, y, 0);
 		}
 		else
 		{
-			al_draw_tinted_bitmap(fill_, al_map_rgba_f(0, 0, 0, 0.5), x, y, 0);
-			al_draw_bitmap(infected_, x, y, 0);
+		//	al_draw_tinted_bitmap(fill_, al_map_rgba_f(255, 0, 0, 1), x, y, 0);
+			al_draw_tinted_bitmap(segment_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod),  x, y, 0);
+			al_draw_tinted_bitmap(infected_, al_map_rgba_f(alpha_mod, alpha_mod, alpha_mod, alpha_mod),  x, y, 0);
 		}
 
-		al_draw_bitmap(segment_, x, y, 0);
+
 	}
 
 	void PlayerDisplay::draw(Coord& camera)
