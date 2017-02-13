@@ -20,6 +20,7 @@
 		    m_.put(gm);
 			//Put player on map
 		    m_.put(p_);
+			pd_ = new PlayerDisplay(&p_);
 
 			// put object on map
 			for (auto & value : mall_objects_)
@@ -48,6 +49,7 @@
 		}
 
 		p_.update(*inputs_->getController(0),m_);
+		pd_->update();
 		camera_.setX(p_.getCoord().getX() - DrawUtils::GAME_W / 2 + (p_.player_size / 2));
 		camera_.setY(p_.getCoord().getY() - DrawUtils::GAME_H / 2 + (p_.player_size / 2));
         return NULL;
@@ -80,6 +82,8 @@
 		//draw colission info (TODO)
 		//if (debug_)
 		//	md_->draw_debug_collide(camera_);
+
+		pd_->draw(camera_);
 
     }
 

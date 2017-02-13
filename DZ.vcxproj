@@ -100,8 +100,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="src\character\player.cpp" />
+    <ClCompile Include="src\character\playerdisplay.cpp" />
     <ClCompile Include="src\drawutils\drawutils.cpp" />
     <ClCompile Include="src\gamestate\gamestate.cpp" />
     <ClCompile Include="src\gamestate\ingame.cpp" />
@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\character\player.h" />
+    <ClInclude Include="src\character\playerdisplay.h" />
     <ClInclude Include="src\drawutils\drawutils.h" />
     <ClInclude Include="src\gamestate\gamestate.h" />
     <ClInclude Include="src\gamestate\ingame.h" />

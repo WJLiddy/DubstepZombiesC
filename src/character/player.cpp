@@ -233,6 +233,12 @@ int  Player::draw_offset_y = -10;
 		return getEnergyCount() * STAMINA_PER_ENERGY;
 	}
 
+	int Player::getBaseEnergy()
+	{
+		return BASE_ENERGY;
+	}
+
+
 	int Player::getStaminaLevel()
 	{
 		return stamina_;

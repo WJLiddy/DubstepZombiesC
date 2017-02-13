@@ -102,5 +102,7 @@ public:
 	int getEnergyMissingDueToThirst();
 	int getEnergyMissingDueToHunger();
 
+	int getBaseEnergy();
+
 };
 #endif 
