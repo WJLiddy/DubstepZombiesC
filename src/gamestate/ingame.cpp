@@ -16,10 +16,17 @@
 		    mall_objects_ = mp.mallObjects;
 
 		    GameObject gm(Coord(0,0), "MALL_STATIC_BASE_COLLIDE", mp.collide);
-		    std::cout << mp.collide.size() << "objects\n";
+		    std::cout << mp.collide.size() << " collide pixels (base)\n";
 		    m_.put(gm);
-		    std::cout <<  "donezo\n";
+			//Put player on map
 		    m_.put(p_);
+
+			// put object on map
+			for (auto & value : mall_objects_)
+			{
+				m_.put(value);
+			}
+
         } catch (string& s) 
         {
             std::cout << "FATAL ERROR PARSING MAP: \"" << s << "\"" << endl;
