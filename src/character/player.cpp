@@ -114,6 +114,8 @@ int  Player::draw_offset_y = -10;
 
 	void Player::update(Controller& i, GameMap& map)
 	{
+		thirst_ += THIRST_RATE;
+		hunger_ += HUNGER_RATE;
 		// no regen and running
 		if (!i.pressed(Controller::A))
 		{

@@ -42,7 +42,7 @@
 				al_draw_bitmap(fill_, x, y, 0);
 			}
 
-			if ((index * p_->STAMINA_PER_ENERGY) < p_->getStaminaLevel() && ((index + 1) * p_->STAMINA_PER_ENERGY) >= p_->getStaminaLevel())
+			if ((index * p_->STAMINA_PER_ENERGY) < p_->getStaminaLevel() && ((index + 1) * p_->STAMINA_PER_ENERGY) > p_->getStaminaLevel())
 			{
 				double alpha = ((double)(p_->getStaminaLevel() % p_->STAMINA_PER_ENERGY)) / (double)p_->STAMINA_PER_ENERGY;
 				std::cout << alpha << endl;

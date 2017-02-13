@@ -16,12 +16,13 @@ private:
 	int last_stamina = 0;
 	const int ENERGY_DECAY_MAX = 30;
 	const int ENERGY_SUSTAIN_MAX = 30;
-	const int icon_width = 6;
+	const int icon_width = 8;
 
-	ALLEGRO_BITMAP* energy_;
-	ALLEGRO_BITMAP* food_;
-	ALLEGRO_BITMAP* water_;
-	ALLEGRO_BITMAP* infection_;
+	ALLEGRO_BITMAP* fill_;
+	ALLEGRO_BITMAP* hungry_;
+	ALLEGRO_BITMAP* thirsty_;
+	ALLEGRO_BITMAP* infected_;
+	ALLEGRO_BITMAP* segment_;
 
 	void draw_energy_bar(int, int, int);
 

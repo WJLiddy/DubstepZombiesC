@@ -36,7 +36,7 @@ private:
 
 	// Total amount of stamina that can be carried per energy unit.
 
-	static const int STAMINA_PER_ENERGY = 500;
+
 	static const int STAMINA_REGEN_PER_ENERGY = 1;
 	
 	// Stamina penalties. regen is 7. so, you can run a little more than half the time.
@@ -49,8 +49,8 @@ private:
 
 	// one minute each, for testing. 
 	//At thirst mach 1, you complain. At thrist mach 2, you get a -1 stamina debuff, so on, until your stamina level reaches 0. Then you die
-	static const int THIRST_MACH = (60 * 60);
-	static const int HUNGER_MACH = (60 * 60);
+	static const int THIRST_MACH = (20 * 60);
+	static const int HUNGER_MACH = (30 * 60);
 
 	Coord validate_move(Coord delta, GameMap& map);
 public:
@@ -103,6 +103,8 @@ public:
 	int getEnergyMissingDueToHunger();
 
 	int getBaseEnergy();
+
+	static const int STAMINA_PER_ENERGY = 500;
 
 };
 #endif 
