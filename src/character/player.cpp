@@ -116,11 +116,8 @@ int  Player::draw_offset_y = -10;
 	{
 		thirst_ += THIRST_RATE;
 		hunger_ += HUNGER_RATE;
-		// no regen and running
-		if (!i.pressed(Controller::A))
-		{
-			stamina_ = std::min(getMaxStamina(), stamina_ + getEnergyCount() * STAMINA_REGEN_PER_ENERGY);
-		}
+        stamina_ = std::min(getMaxStamina(), stamina_ + getEnergyCount() * STAMINA_REGEN_PER_ENERGY);
+		
 
 		if(!move_intended(i))
 		{ 
@@ -162,13 +159,7 @@ int  Player::draw_offset_y = -10;
 
 
 			//Speed calc
-			double speed = BASE_SPEED + (getEnergyCount()*SPEED_PER_ENERGY);
-
-			if (i.pressed(Controller::A) && stamina_ > STAMINA_RUN_COST_PER_FRAME)
-			{
-				stamina_ -= STAMINA_RUN_COST_PER_FRAME;
-				speed = speed * RUN_MULT;
-			}
+			double speed = BASE_SPEED;
 
 			// Add move to our delta timer.
 			delta_move_ += speed;

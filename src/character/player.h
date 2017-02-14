@@ -23,10 +23,7 @@ private:
 	double delta_move_ = 0;
 
 
-	const double BASE_SPEED = 0.15;
-	// 0.15 + (7 * 0.05) = 0.5
-	const double SPEED_PER_ENERGY = 0.05;
-	const double RUN_MULT = 1.9;
+	const double BASE_SPEED = 0.7;
 
 	int stamina_ = 0;
 	int thirst_ = 0;
@@ -39,13 +36,10 @@ private:
 
 	static const int STAMINA_REGEN_PER_ENERGY = 1;
 	
-	// Stamina penalties. regen is 7. so, you can run a little more than half the time.
-	static const int STAMINA_RUN_COST_PER_FRAME = 5;
-
 	static const int THIRST_RATE = 1;
 	static const int HUNGER_RATE = 1;
 
-	static const int BASE_ENERGY = 7;
+	static const int BASE_ENERGY = 5;
 
 	// one minute each, for testing. 
 	//At thirst mach 1, you complain. At thrist mach 2, you get a -1 stamina debuff, so on, until your stamina level reaches 0. Then you die
