@@ -57,5 +57,5 @@ cut -d' ' -f 1 |
 xargs -I% printf 'target_link_libraries(../bin/DZ %)\n' >> ../CMakeLists.txt
 
 #Allegro linked libraries:
-printf "allegro\nallegro_font\nallegro_ttf\nallegro_image\n" | xargs -I% printf "target_link_libraries(../bin/DZ %)\n" >> ../CMakeLists.txt
+printf "allegro\nallegro_font\nallegro_ttf\nallegro_image\nallegro_primitives\n" | xargs -I% printf "target_link_libraries(../bin/DZ %)\n" >> ../CMakeLists.txt
  
