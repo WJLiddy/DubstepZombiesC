@@ -56,22 +56,40 @@
 		double delta = new_time - old_time;
 		old_time = new_time;
 
-	  drawCenteredString(255, 255, 0, GAME_W / 2, 10, "TARGET: " + std::to_string(1/60.0));
-	  drawCenteredString(255, 255, 0, GAME_W / 2, 20, "ACTUAL: " + std::to_string(delta));
+		drawStringCenter(al_map_rgba(1, 1, 1,0.5), GAME_W / 2, 10, "TARGET: " + std::to_string(1 / 60.0));
+		drawStringCenter(al_map_rgba(1, 1, 1,0.5), GAME_W / 2, 20, "ACTUAL: " + std::to_string(delta));
 
-	 // al_set_target_bitmap(temp_);
-      //al_draw_scaled_bitmap(game_screen_, 0, 0, GAME_W, GAME_H, 0, 0, screen_w_, screen_h_, 0);      
-	 // al_draw_scaled_bitmap(game_screen_, 0, 0, GAME_W, GAME_H, 0, 0, GAME_W, GAME_H, 0);
-	  //al_set_target_backbuffer(display_);
-	  //al_draw_bitmap(temp_,0,0,0);
       al_flip_display();
 	  al_clear_to_color(al_map_rgb(0, 0, 0));
     }
 
-    void DrawUtils::drawCenteredString(int r, int g, int b, int x, int y, std::string s)
+	void DrawUtils::drawStringLeft(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold)
     {
-    	al_draw_text(font_, al_map_rgb(r,g,b),x,y,ALLEGRO_ALIGN_CENTRE, s.c_str());
+		drawStringHelper(col, x, y, s, bold, ALLEGRO_ALIGN_LEFT);
     }
+
+	void DrawUtils::drawStringCenter(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold)
+	{
+		drawStringHelper(col, x, y, s, bold, ALLEGRO_ALIGN_CENTRE);
+	}
+
+	void DrawUtils::drawStringRight(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold)
+	{
+		drawStringHelper(col, x, y, s, bold, ALLEGRO_ALIGN_RIGHT);
+	}
+
+	void DrawUtils::drawStringHelper(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold, int flag)
+	{
+		if (bold)
+		{
+			al_draw_text(font_, al_map_rgba_f(0, 0, 0,col.a ), x-1, y, flag, s.c_str());
+			al_draw_text(font_, al_map_rgba_f(0, 0, 0, col.a), x, y-1, flag, s.c_str());
+			al_draw_text(font_, al_map_rgba_f(0, 0, 0, col.a), x+1, y, flag, s.c_str());
+			al_draw_text(font_, al_map_rgba_f(0, 0, 0, col.a), x, y+1, flag, s.c_str());
+		}
+
+		al_draw_text(font_,col, x, y, flag, s.c_str());
+	}
 
     DrawUtils::~DrawUtils()
     {

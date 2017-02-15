@@ -19,6 +19,7 @@ private:
 	int screen_w_; 
 	int screen_h_;
 	
+	void DrawUtils::drawStringHelper(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold, int flag);
 
 public:
 	static const int GAME_W = 340;
@@ -35,8 +36,14 @@ public:
     void flip();
 
     // CALL THE BELOW FUNCTIONS BETWEEN beginDraw() and flip().
-    
-    // Draws a centered string on the screen at r,g,b,x,y,string.  
-    void drawCenteredString(int, int, int, int, int, std::string);
+   
+
+	void drawStringLeft(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold = false);
+
+	void drawStringCenter(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold = false);
+
+	void drawStringRight(ALLEGRO_COLOR col, int x, int y, std::string s, bool bold = false);
+
+
 };
 #endif 

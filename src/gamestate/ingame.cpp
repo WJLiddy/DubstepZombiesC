@@ -83,7 +83,7 @@
 		//if (debug_)
 		//	md_->draw_debug_collide(camera_);
 
-		pd_->draw(camera_);
+		pd_->draw(drawUtils,camera_);
 
     }
 

@@ -43,8 +43,8 @@ private:
 
 	// one minute each, for testing. 
 	//At thirst mach 1, you complain. At thrist mach 2, you get a -1 stamina debuff, so on, until your stamina level reaches 0. Then you die
-	static const int THIRST_MACH = (20 * 60);
-	static const int HUNGER_MACH = (30 * 60);
+	static const int THIRST_MACH = (7 * 60);
+	static const int HUNGER_MACH = (11 * 60);
 
 	Coord validate_move(Coord delta, GameMap& map);
 public:
@@ -83,7 +83,7 @@ public:
 	void draw(Coord&);
 	int getBottom();
 
-	//5, being totally healthy. 0, being dead.
+	//BASE_ENERGY(), being totally healthy. 0, being dead.
 	int getEnergyCount();
 	
 	//some constant times energy level

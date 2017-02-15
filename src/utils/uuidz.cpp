@@ -34,7 +34,7 @@ long long UUIDZ::gettime()
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
 	// ON Windows, for some reason, this string isn't long enough, so I had to add more digits. Here's how I did it, feel free to change.
 	// Drawback: If a user has their clock set to a very early time this might break. 
-	return (long long)t1.time_since_epoch().count() * 1000003L;
+	return (long long)t1.time_since_epoch().count() * 10000003L;
 }
 
 
