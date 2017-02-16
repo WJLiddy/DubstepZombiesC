@@ -67,6 +67,7 @@ public:
         }
 
 protected:
+    std::string usr;//The user of the keyboard.
     bool isPressed[10]; // True If key is pressed 
     bool justPressed[10];
 
@@ -80,6 +81,14 @@ public:
 
     virtual void update() = 0;
     virtual void setKey(Control, int) = 0;
+    //All destructors should save, so if the program leaves,
+    //the keys can be saved.
+    virtual void save(std::string) const = 0;
+    
+    //Also, constructors should load save files, if the exist.
+    //Maybe a user should be included: ? string user
+    virtual void load(std::string) = 0;
+    
     //Tapped returns if the controll has just been pressed
     bool tapped(Control c) const{return justPressed[c];}
     //Pressed returns if the controll is pressed down

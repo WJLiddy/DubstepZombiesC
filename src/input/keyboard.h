@@ -9,6 +9,7 @@
 
 #include "controller.h"
 #include <list> //Static list of keys used
+#include <string> //User
 
 class Keyboard : public Controller{
 private:
@@ -16,8 +17,8 @@ private:
 			//Allegro key max should be 118
     int KeyMap[10]; // The map to the controlls
 public:
-    Keyboard() : Controller()
-{
+    Keyboard(std::string user = "NO_USR") : Controller()
+{       
     if (!al_install_keyboard()){
 	fprintf(stderr, "Failed to install keyboard!\n");
 	return;
@@ -34,21 +35,12 @@ public:
     KeyMap[8] = -1;
     KeyMap[9] = -1;
 
-    //Default Keys
-    setKey(A, ALLEGRO_KEY_H);
-    setKey(B, ALLEGRO_KEY_J);
-    setKey(X, ALLEGRO_KEY_N);
-    setKey(Y, ALLEGRO_KEY_M);
-    setKey(UP, ALLEGRO_KEY_W);
-    setKey(DOWN, ALLEGRO_KEY_S);
-    setKey(LEFT, ALLEGRO_KEY_A);
-    setKey(RIGHT, ALLEGRO_KEY_D);
-    setKey(RBUMPER, ALLEGRO_KEY_U);
-    setKey(LBUMPER, ALLEGRO_KEY_Y);
-
+    load(user);//Load the keys - Default "NO_USR"
 }
     virtual void update();//Update keyboard
-    virtual void setKey(Control, int);
+    virtual void setKey(Control, int); //Bind a key
+    virtual void save(std::string user) const; //Save some key bindings
+    virtual void load(std::string user); //Load some key bindings
 };
 
 #endif //KEYBOARD_H

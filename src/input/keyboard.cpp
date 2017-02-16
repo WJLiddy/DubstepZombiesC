@@ -2,6 +2,8 @@
 
 //Functions from keyboard class
 #include "keyboard.h"
+#include <fstream> //Files 'n shit
+
 /**********************************
     Default constructor:
 	Installs keyboard driver, 
@@ -72,5 +74,52 @@ void Keyboard::update(){
 	} else {
 	    unPress(index);
 	}
+    }
+}
+
+/********************************************************1337*********
+    void save(string): Save keyboard state to a file under a username.
+Saves in the text file keybindings.txt, which load will search out of 
+*********************************************************************/
+
+void Keyboard::save(std::string user) const{
+    //Make sure a user was specified in order to save
+    if (usr != "NO_USR"){
+	std::fstream file;
+	//Open the file for read(IN), write(OUT), and always APPend to the 
+	//end of the file
+	file.open("keybindings.txt", std::fstream::in |std::fstream::out | std::fstream::app);
+    
+
+	file.close();
+    }
+}
+
+/**********************************************************************
+    load(string) : Load the key bindings of a user. If those key bindings don't exist, then create a user and save the default bindings under that user.
+**********************************************************************/
+
+void Keyboard::load(std::string user){
+    if (user == "NO_USR"){
+	//Default Keys
+        setKey(A, ALLEGRO_KEY_H);
+	setKey(B, ALLEGRO_KEY_J);
+	setKey(X, ALLEGRO_KEY_N);
+	setKey(Y, ALLEGRO_KEY_M);
+	setKey(UP, ALLEGRO_KEY_W);
+	setKey(DOWN, ALLEGRO_KEY_S);
+	setKey(LEFT, ALLEGRO_KEY_A);
+	setKey(RIGHT, ALLEGRO_KEY_D);
+	setKey(RBUMPER, ALLEGRO_KEY_U);
+	setKey(LBUMPER, ALLEGRO_KEY_Y);
+    } else {
+
+        std::fstream file;
+        //Open the file for read(IN), write(OUT), and always APPend to the 
+        //end of the file
+        file.open("keybindings.txt", std::fstream::in |std::fstream::out | std::fstream::app);
+
+
+        file.close();
     }
 }
