@@ -9,8 +9,8 @@
 #include "../utils/common.h"
 
 int Player::player_size = 10;
-int  Player::draw_offset_x = -5;
-int  Player::draw_offset_y = -10;
+int  Player::draw_offset_x = -7;
+int  Player::draw_offset_y = -13;
 
 	//Player hardcoded to be 10 by 10 for now.
 	Player::Player() : RenderObject(Coord(50,50),"PLAYER",Coord::generateRect(player_size, player_size))
@@ -150,8 +150,8 @@ int  Player::draw_offset_y = -10;
 			if (frame_time_left_ <= 0)
 			{
 				// h a r d c o d e d
-				frame_time_left_ = 15;
-				frame = ((frame + 1) % 4);
+				frame_time_left_ = frame_speed_;
+				frame = ((frame + 1) % frame_count_);
 			}
 			
 
@@ -190,7 +190,7 @@ int  Player::draw_offset_y = -10;
 	{
 		
 		int dir_offset = static_cast<int>(dir);
-		al_draw_bitmap_region(walk_, frame*spritesheet_size, dir_offset*spritesheet_size, spritesheet_size, spritesheet_size, (getCoord().getX() + draw_offset_x) - camera.getX(), (getCoord().getY() + draw_offset_y) - camera.getY(), 0);
+		al_draw_bitmap_region(walk_, frame*spritesheet_size_, dir_offset*spritesheet_size_, spritesheet_size_, spritesheet_size_, (getCoord().getX() + draw_offset_x) - camera.getX(), (getCoord().getY() + draw_offset_y) - camera.getY(), 0);
 
 		//al_draw_bitmap_region(walk_,w*frame, h*dir_offset, w, h, coord.getX() - camera.getX(), coord.getY() - camera.getY(), 0);
 	}

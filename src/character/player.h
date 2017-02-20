@@ -17,13 +17,17 @@ private:
 	//TODO: AnimationSet class, like in Ad2.
 	int frame = 0;
 	int frame_time_left_ = 0;
-	static const int spritesheet_size = 20;
+	static const int spritesheet_size_ = 24;
+	static const int frame_count_ = 8;
+	static const int frame_speed_ = 5;
 
 	//move is discrete, so we can "charge" between frames.
 	double delta_move_ = 0;
 
 
-	const double BASE_SPEED = 0.7;
+
+	// DO NOT SET ABOVE 1.0. The algorithm used is not designed to go faster than 1.0.
+	const double BASE_SPEED = 0.9;
 
 	int stamina_ = 0;
 	int thirst_ = 0;
@@ -32,8 +36,6 @@ private:
 	bool infected_ = false;
 
 	// Total amount of stamina that can be carried per energy unit.
-
-
 	static const int STAMINA_REGEN_PER_ENERGY = 1;
 	
 	static const int THIRST_RATE = 1;
