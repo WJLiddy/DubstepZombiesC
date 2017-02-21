@@ -63,13 +63,16 @@
     <ClCompile Include="src\utils\gameobject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\utils\uuidz.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\character\playerdisplay.cpp">
+    <ClCompile Include="src\creature\character\playerdisplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\creature\character\player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\creature\zombie\zombie.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,16 +125,22 @@
     <ClInclude Include="src\utils\gameobject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\utils\uuid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\renderobject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\character\playerdisplay.h">
+    <ClInclude Include="src\creature\character\player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\creature\character\playerdisplay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\creature\zombie\zombie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\creature\creature.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

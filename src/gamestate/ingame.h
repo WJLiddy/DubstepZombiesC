@@ -7,8 +7,8 @@
 #include "../utils/coord.h"
 #include "../mall/malldraw.h"
 #include "../mall/mallobject.h"
-#include "../character/player.h"
-#include "../character/playerdisplay.h"
+#include "../creature/character/player.h"
+#include "../creature/character/playerdisplay.h"
 
 class InGame : public GameState
 {

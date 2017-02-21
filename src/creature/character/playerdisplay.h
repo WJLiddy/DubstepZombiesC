@@ -2,8 +2,8 @@
 #define PLAYERDISPLAY_H
 #include <allegro5/allegro.h>
 #include "player.h"
-#include "../utils/coord.h"
-#include "../drawutils/drawutils.h"
+#include "../../utils/coord.h"
+#include "../../drawutils/drawutils.h"
 
 //Drawing information on top of the player.
 class PlayerDisplay
@@ -15,6 +15,7 @@ private:
 	int energy_frame_ = 0;
 	int last_stamina = 0;
 
+	const double MOVE_SPEED = 0.9;
 	const int ENERGY_DECAY_MAX = 120;
 	const int ENERGY_SUSTAIN_MAX = 120;
 	

@@ -100,8 +100,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\character\player.cpp" />
-    <ClCompile Include="src\character\playerdisplay.cpp" />
+    <ClCompile Include="src\creature\character\player.cpp" />
+    <ClCompile Include="src\creature\character\playerdisplay.cpp" />
+    <ClCompile Include="src\creature\zombie\zombie.cpp" />
     <ClCompile Include="src\drawutils\drawutils.cpp" />
     <ClCompile Include="src\gamestate\gamestate.cpp" />
     <ClCompile Include="src\gamestate\ingame.cpp" />
@@ -121,8 +122,10 @@
     <ClCompile Include="src\utils\uuidz.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\character\player.h" />
-    <ClInclude Include="src\character\playerdisplay.h" />
+    <ClInclude Include="src\creature\character\player.h" />
+    <ClInclude Include="src\creature\character\playerdisplay.h" />
+    <ClInclude Include="src\creature\creature.h" />
+    <ClInclude Include="src\creature\zombie\zombie.h" />
     <ClInclude Include="src\drawutils\drawutils.h" />
     <ClInclude Include="src\gamestate\gamestate.h" />
     <ClInclude Include="src\gamestate\ingame.h" />

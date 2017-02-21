@@ -1,6 +1,6 @@
 #include "playerdisplay.h"
-#include "../utils/coord.h"
-#include "../drawutils/drawutils.h"
+#include "../../utils/coord.h"
+#include "../../drawutils/drawutils.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 
@@ -156,7 +156,7 @@
 		//HARDCODED LARGE ICON DRAWING
 		du.drawStringLeft(al_map_rgb_f(1, 1, 1), 2, 2, "Jacket", true);
 
-		for (int i = 0; i != p_->getBaseEnergy(); i++)
+		for (int i = 0; i != p_->BASE_ENERGY; i++)
 		{
 			draw_large_energy_bar(i, 2 + i*(large_icon_width), 12);
 		}
