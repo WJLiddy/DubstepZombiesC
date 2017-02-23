@@ -45,6 +45,9 @@ class GameMap
 	//i.e. the top-left anchor
 	vector<shared_ptr<GameObject> > collect(GameObject);
 	
+	//collect by name. 
+	vector<shared_ptr<GameObject>> collect(string name);
+
 	vector<shared_ptr<GameObject> > operator[](Coord);
 	vector<shared_ptr<GameObject> > operator[](GameObject);
 

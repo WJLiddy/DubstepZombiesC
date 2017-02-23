@@ -24,6 +24,18 @@ private:
 
 public:
 
+	static Anim_set generate_anim_set()
+	{
+		Creature::Anim_set a;
+		a.frame_count = 8;
+		a.frame_speed = 5;
+		a.frame_size = 24;
+		a.draw_offset_x = -7;
+		a.draw_offset_y = -13;
+		a.anim = al_load_bitmap("res/sprites/jacket/walk.png");
+		return a;
+	}
+
 	// Total amount of stamina that can be carried per energy unit.
 	static const int STAMINA_REGEN_PER_ENERGY = 1;
 

@@ -28,6 +28,14 @@
 				m_.put(value);
 			}
 
+			//put some zambies around. 20 should do.
+			for (int i = 0; i != 20; i++)
+			{
+				auto z = Zombie(Coord(i * 50, 50));
+				m_.put(z);
+				zombies_.push_back(z);
+			}
+
         } catch (string& s) 
         {
             std::cout << "FATAL ERROR PARSING MAP: \"" << s << "\"" << endl;
@@ -48,6 +56,11 @@
 			debug_ = !debug_;
 		}
 
+		for (auto & z : zombies_)
+		{
+			z.update(m_);
+		}
+
 		p_.update(*inputs_->getController(0),m_);
 		pd_->update();
 		camera_.setX(p_.getCoord().getX() - DrawUtils::GAME_W / 2 + (p_.player_size / 2));
@@ -66,6 +79,13 @@
 		{
 			to_render.push_back(&value);
 		}
+
+
+		for (auto &  value : zombies_)
+		{
+			to_render.push_back(&value);
+		}
+
 
 		to_render.push_back(&p_);
 		

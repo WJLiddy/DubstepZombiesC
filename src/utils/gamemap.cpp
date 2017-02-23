@@ -120,6 +120,15 @@ vector<shared_ptr<GameObject> > GameMap::collect(GameObject go)
 	return GameMap::getref(res);
 }
 
+
+vector<shared_ptr<GameObject> > GameMap::collect(string type)
+{
+	if (!layer_.count(type))
+		return vector<shared_ptr<GameObject> >();
+	auto res = layer_[type];
+	return GameMap::getref(res);
+}
+
 vector<shared_ptr<GameObject> > GameMap::operator[](GameObject go)
 {
 	return GameMap::collect(go);

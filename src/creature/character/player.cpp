@@ -9,20 +9,8 @@
 #include "../../utils/common.h"
 
 
-	Creature::Anim_set generate_anim_set()
-	{
-		Creature::Anim_set a;
-		a.frame_count = 8;
-		a.frame_speed = 5;
-		a.frame_size = 24;
-		a.draw_offset_x = -7;
-		a.draw_offset_y = -13;
-		a.anim = al_load_bitmap("res/sprites/jacket/walk.png");
-		return a;
-	}
-
 	//Player hardcoded to be 10 by 10 for now.
-	Player::Player() : Creature(Coord(50,50),"PLAYER", generate_anim_set())
+	Player::Player() : Creature(Coord(50,50),"PLAYER", Player::generate_anim_set())
 	{
 		
 	}

@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "drawutils.h"
@@ -55,9 +56,12 @@
 		double new_time = al_get_time();
 		double delta = new_time - old_time;
 		old_time = new_time;
-
-		drawStringCenter(al_map_rgba(1, 1, 1,0.5), GAME_W / 2, 10, "TARGET: " + std::to_string(1 / 60.0));
-		drawStringCenter(al_map_rgba(1, 1, 1,0.5), GAME_W / 2, 20, "ACTUAL: " + std::to_string(delta));
+		auto targ = std::to_string(1 / 60.0);
+		auto delt = std::to_string(delta);
+		targ.resize(5);
+		delt.resize(5);
+		drawStringCenter(al_map_rgba(1, 255, 1,128), GAME_W / 2, 10, "TARGET: " + targ);
+		drawStringCenter(al_map_rgba(delta > .2 ? 255 : 0, delta < .2 ? 255 : 0, 1,128), GAME_W / 2, 20, "ACTUAL: " + delt);
 
       al_flip_display();
 	  al_clear_to_color(al_map_rgb(0, 0, 0));
