@@ -147,7 +147,7 @@ bool GameMap::has(GameObject go, int x, int y)
 	return GameMap::has(go,Coord(x,y));
 }
 
-/*
+
 //see the showcase section of usages of this class
 int main(int argc, char **argv) 
 {
@@ -157,24 +157,12 @@ int main(int argc, char **argv)
 	Coord testco(1,1);
 	body.insert(testco);
 	GameObject test1(Coord(0,0), "test1", body);
-
-	//usage showcase
-	cout << testco << endl;
-	cout << test1 << endl;
 	//put
 	gm+=test1;
-	//notice that here, the test1 GO is anchored at (0,0), 
-	//yet its body doesn't cover (0,0) as it only has (1,1)
-	cout << gm.has(test1, test1.getCoord()) << endl;
-	cout << gm.has(test1,1,1) << endl;
-	//collect
-	cout << gm.getobj(gm[test1][0]) << endl;
-	//get
-	cout << gm.getobj(gm[Coord(1,1)][0]) << endl;
-	//remove
-	gm-=test1;
-	cout << gm.has(test1,1,1) << endl;
+	gm.move(test1, Coord(50, 50));
+	cout << *gm.collect("test1")[0] << endl;
+	cout << test1 << endl;
+	cin.get();
 	return 0;
 }
 
-*/

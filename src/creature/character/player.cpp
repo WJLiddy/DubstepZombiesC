@@ -54,6 +54,8 @@
 
 	void Player::update(Controller& i, GameMap& map)
 	{
+		auto p = map.collect("PLAYER")[0];
+		printf("x: %d y: %d \n", p->getCoord().getX(), p->getCoord().getY());
 		thirst_ += THIRST_RATE;
 		hunger_ += HUNGER_RATE;
         stamina_ = std::min(getMaxStamina(), stamina_ + getEnergyCount() * STAMINA_REGEN_PER_ENERGY);
