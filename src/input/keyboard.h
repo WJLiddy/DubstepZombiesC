@@ -39,7 +39,7 @@ public:
 }
     virtual void update();//Update keyboard
     virtual void setKey(Control, int); //Bind a key
-    virtual void save(std::string user) const; //Save some key bindings
+    virtual void save(std::string user); //Save some key bindings
     virtual void load(std::string user); //Load some key bindings
 };
 

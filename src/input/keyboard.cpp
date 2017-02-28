@@ -2,7 +2,12 @@
 
 //Functions from keyboard class
 #include "keyboard.h"
-#include <fstream> //Files 'n shit
+#include <fstream> //Files 'n stuff
+#include <queue> //Que for holding file stuff
+#include <sstream> //Convert int to string using ostreamstring
+
+using std::string;
+using std::ostringstream;
 
 /**********************************
     Default constructor:
@@ -82,16 +87,64 @@ void Keyboard::update(){
 Saves in the text file keybindings.txt, which load will search out of 
 *********************************************************************/
 
-void Keyboard::save(std::string user) const{
+void Keyboard::save(std::string user){
     //Make sure a user was specified in order to save
     if (usr != "NO_USR"){
-	std::fstream file;
-	//Open the file for read(IN), write(OUT), and always APPend to the 
-	//end of the file
-	file.open("keybindings.txt", std::fstream::in |std::fstream::out | std::fstream::app);
-    
+	//Set up current controlls in a string to be put into a file.
+	string current_controls = "    ";
+	for (Control index = A; index < END; next(index)){
+	    current_controls.append(StrControl(index));
+	    current_controls.append(": ");
+	    
+	    /* Convert int -> ostringstream -> string */
+	    ostringstream converter; //Convert an int to str
+	    converter << KeyMap[index];
+	    current_controls.append(converter.str());
+	    //TODO append control here
+	    current_controls.append("; ");
+	}
 
-	file.close();
+	std::fstream file;
+	//Open the file for read(IN)
+	file.open("keybindings.txt", std::fstream::in | std::fstream::app);
+
+	bool found = false; //Was the record in the file?
+	std::queue<string> file_q;//File queue - to temporary hold cont of file
+        string line;
+        string old_controls = "";
+        while (getline(file, line)){
+	    file_q.push(line);
+
+            if (line == user){
+		found = true;//The controls are found
+                getline(file, old_controls);
+		file_q.push(current_controls);//Replace controls
+                break; //Break from the for loop
+            }
+        }
+	
+	//Since the line was broken early
+	while (getline(file,line)){
+	    file_q.push(line);
+	}
+	file.close(); // And finished
+
+	//Open file for output - and clear it before so(trunc)
+	std::ofstream redoFile("keybindings.txt", std::ios::out | std::ios::trunc);
+
+	while (!file_q.empty()){
+	    redoFile << file_q.front() << std::endl;
+	    file_q.pop(); //Remove line put in
+	}
+	/* If record DNE, add it */
+	if (found == false){ 
+	    redoFile << std::endl;
+	    redoFile << user << std::endl;
+	    redoFile << current_controls << std::endl;
+	}
+
+	//All done
+	redoFile.close();
     }
 }
 
@@ -118,7 +171,16 @@ void Keyboard::load(std::string user){
         //Open the file for read(IN), write(OUT), and always APPend to the 
         //end of the file
         file.open("keybindings.txt", std::fstream::in |std::fstream::out | std::fstream::app);
-
+	
+	string line;
+	string controls = "";
+	while (getline(file, line)){
+	    if (line == user){
+		getline(file, controls);
+		break; //Break from the for 
+	    }
+	}
+	//Look at controls, and figure out which controls are which
 
         file.close();
     }

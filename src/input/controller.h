@@ -83,7 +83,7 @@ public:
     virtual void setKey(Control, int) = 0;
     //All destructors should save, so if the program leaves,
     //the keys can be saved.
-    virtual void save(std::string) const = 0;
+    virtual void save(std::string) = 0;
     
     //Also, constructors should load save files, if the exist.
     //Maybe a user should be included: ? string user
