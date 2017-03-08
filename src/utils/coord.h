@@ -27,6 +27,7 @@ class Coord
         vector<Coord> getAdj8();
 
         static double dist(Coord&, Coord&);
+	static int manhattan(Coord&, Coord&);
 	static unordered_set<Coord> generateRect(int w, int h);
 
 	operator string() const

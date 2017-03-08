@@ -64,6 +64,7 @@ void GameMap::remove(GameObject go)
 			gm_.at(go.getCoord()+c).erase(go.uuid());
 		}
 		layer_[go.getType()].erase(go.uuid());
+		ref_.erase(go.uuid());
 	}
 	catch (const out_of_range& oor)
 	{

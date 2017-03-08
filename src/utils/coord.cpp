@@ -78,6 +78,12 @@ double Coord::dist(Coord &a, Coord &b)
 	return sqrt(pow(a.getX()-b.getX(),2)+pow(a.getY()-b.getY(),2));
 }
 
+int Coord::manhattan(Coord &a, Coord &b)
+{
+	Coord c = a-b;
+	return max(c.getX(),c.getY());
+}
+
 unordered_set<Coord> Coord::generateRect(int w, int h)
 {
 	unordered_set<Coord> set;
