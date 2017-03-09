@@ -31,7 +31,7 @@
 			//put some zambies around. 20 should do.
 			for (int i = 0; i != 1; i++)
 			{
-				auto z = Zombie(Coord(100, 100));
+				auto z = Zombie(Coord(100 + (i*50), 50));
 				m_.put(z);
 				zombies_.push_back(z);
 			}

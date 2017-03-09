@@ -20,7 +20,7 @@ void Zombie::update(GameMap& gm)
 	auto delt = players[0]->getCoord() - getCoord();
 	//printf("x: %d y: %d \n", getCoord().getX(), getCoord().getY());
 	//printf("x: %d y: %d \n", delt.getX(), delt.getY());
-	/**
+
 	if(delt.getX() > 0 && delt.getY() > 0)
 		attempt_move(NW, gm);
 	if (delt.getX() > 0 && delt.getY() < 0)
@@ -29,5 +29,4 @@ void Zombie::update(GameMap& gm)
 		attempt_move(SE, gm);
 	if (delt.getX() < 0 && delt.getY() < 0)
 		attempt_move(SW, gm);
-		*/
 }

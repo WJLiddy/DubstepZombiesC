@@ -149,7 +149,8 @@ bool GameMap::has(GameObject go, int x, int y)
 }
 
 
-//see the showcase section of usages of this class
+//see the showcase section of usages of this clas
+/**s
 int main(int argc, char **argv) 
 {
 	//making test objects
@@ -166,4 +167,5 @@ int main(int argc, char **argv)
 	cin.get();
 	return 0;
 }
+*/
 
